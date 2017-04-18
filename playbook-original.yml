@@ -1,0 +1,121 @@
+---
+- name: Prepare Raspberry Pi Image with Kitchen Sink recipe
+  hosts: raspberrypis
+  
+
+  tasks:
+    - name: Get latest Raspbian updates
+      apt: 
+        update_cache: yes
+        upgrade: yes
+      tags:
+        - update
+      become: true
+
+    - name: Download script to change keyboard layout
+      get_url:
+        url: 'https://gist.githubusercontent.com/raspberrypisig/b92d3ab92a51d74b857da9bc02958d56/raw/004f2609f40e848d127b66edd8b69b210727a945/setupKeyboardonPi.sh'
+        dest: /tmp/setupKeyboard.sh
+        mode: 0555
+
+    - name: Delete a line in the file
+      lineinfile:
+        regexp: "^sudo debconf-set-selections <<< 'console-data console-data/keymap/policy select Select keymap from full list'"
+        line: ""
+        path: /tmp/setupKeyboard.sh
+
+    - name: debconf settings
+      debconf:
+        name: console-data
+        question: console-data/keymap/policy
+        value: "Select keymap from full list"
+        vtype: select
+      become: true
+    
+    - name: Run keyboard layout change script
+      shell: /tmp/setupKeyboard.sh
+
+    - name: Install on-screen keyboard
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 'at-spi2-core'
+        - 'florence'
+      tags:
+        - install
+      become: true
+
+    - name: Enable nodered on boot
+      systemd:
+        name: nodered
+        enabled: yes
+        state: started
+      tags:
+        - nodered
+      become: yes  
+
+    - name: Grab the UI which will create .node-red dir
+      get_url:
+        url: 'http://192.168.81.48:1880'
+        dest: /tmp/boo.html
+      tags:
+        - nodered
+
+    - name: Download latest nodejs
+      shell: "curl -sL https://deb.nodesource.com/setup_6.x | bash -"
+      become: true
+      tags:
+        - nodered
+
+    - name: Install NodeJS 6.x
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - nodejs
+        - build-essential
+      become: true  
+      tags:
+        - nodered
+
+    - name: Install npm
+      apt:
+        name: npm
+        state: present
+      become: true
+      tags:
+        - nodered
+
+    - name: Install npm modules globally
+      npm:
+        name: "{{ item }}"
+        global: yes
+      with_items:
+        - node-gyp
+        - node-pre-gyp
+      become: true 
+      tags:
+        - nodered
+
+    - name: Install node-red modules
+      npm: 
+        name: "{{ item }}"
+        path: /home/pi/.node-red
+      with_items:
+        - node-red-dashboard
+      tags:
+        - nodered
+
+    - name: Install serialport nodered modules
+      shell: "cd /home/pi/.node-red && npm i serialport --unsafe-perm"
+      tags:
+        - nodered
+
+    - name: Restart nodered
+      systemd:
+        name: nodered
+        state: restarted
+      become: true
+      tags:
+        - nodered
