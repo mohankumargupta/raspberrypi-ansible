@@ -1,0 +1,13 @@
+---
+- include: apt-software.yml
+  tags:
+    - apt
+- include: keyboard-layout.yml
+  tags:
+    - keyboard
+- include: raspi-config.yml
+  tags:
+    - config
+- include: node-red.yml
+  tags:
+    - nodered

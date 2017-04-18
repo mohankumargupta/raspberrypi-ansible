@@ -1,0 +1,12 @@
+---
+- name: raspi-config custom settings
+  hosts: raspberrypis
+  tasks:
+    - name: Enable VNC
+      systemd:
+        name: vncserver-x11-serviced
+        state: started
+        enabled: yes
+
+    - name: Enable serial
+      shell: "raspi-config nonint && do_serial"

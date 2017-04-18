@@ -8,4 +8,5 @@
 5. Change IP address in hosts file in this directory
    (use Advanced IP Scanner or nmap)
 6. Install ansible using ppa:ansible/ansible on ubuntu
-7. Run ansible-playbook -i hosts playbook.yml --become
+7. Setup ssh keyless login with Raspberry Pi target (ssh-keygen, ssh-copy-id)
+8. Run ansible-playbook -i hosts playbook.yml
