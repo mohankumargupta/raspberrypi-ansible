@@ -2,6 +2,15 @@
 - name: Install latest nodejs and useful node-red modules
   hosts: raspberrypis
   tasks:
+
+    - name: remove nodejs nodejs-legacy
+      apt:
+        name: "{{ item }}"
+        state: absent
+        with_items:
+          - nodejs
+          - nodejs-legacy
+
     - name: Add nodejs to apt repositories
       shell: "curl -sL https://deb.nodesource.com/setup_6.x | bash -"
       become: true
@@ -57,7 +66,6 @@
         path: /home/pi/.node-red
       with_items:
         - node-red-dashboard
-        - serialport
         - node-red-node-arduino
 
 
