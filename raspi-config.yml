@@ -7,6 +7,8 @@
         name: vncserver-x11-serviced
         state: started
         enabled: yes
+      become: true
 
     - name: Enable serial
-      shell: "raspi-config nonint && do_serial"
+      shell: "raspi-config nonint do_serial 1"
+      become: true

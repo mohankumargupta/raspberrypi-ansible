@@ -8,6 +8,10 @@
         upgrade: yes
       become: true
 
+    - name: Make sure there are no broken packages
+      command: apt-get -y -f install
+      become: true 
+
     - name: Install software
       apt:
         name: "{{ item }}"
@@ -18,5 +22,6 @@
         - vlc
         - at-spi2-core
         - florence 
-        - realvnc-vnc-server    
+        - realvnc-vnc-server  
+        - build-essential  
       become: true

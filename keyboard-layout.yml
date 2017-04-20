@@ -1,6 +1,6 @@
 ---
 - name: Change keyboard layout to US
-  hostname: raspberrypis 
+  hosts: raspberrypis 
   tasks:    
     - name: Download script to change keyboard layout
       get_url:

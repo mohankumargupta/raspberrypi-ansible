@@ -2,17 +2,17 @@
 - name: Install latest nodejs and useful node-red modules
   hosts: raspberrypis
   tasks:
-    - name: Download latest nodejs
+    - name: Add nodejs to apt repositories
       shell: "curl -sL https://deb.nodesource.com/setup_6.x | bash -"
       become: true
 
     - name: Install NodeJS 6.x
       apt:
         name: "{{ item }}"
-        state: present
+        state: latest
+        update_cache: true
       with_items:
         - nodejs
-        - build-essential
       become: true  
 
     - name: Install npm modules globally
@@ -22,15 +22,17 @@
       with_items:
         - node-gyp
         - node-pre-gyp
+        - node-red
       become: true 
 
     - name: Enable nodered on boot and start nodered
       systemd:
         name: nodered
         enabled: yes
-        state: started
+        state: restarted
       tags:
         - nodered
+        - startnodered
       become: yes  
 
     - name: Grab the UI which will create .node-red dir
@@ -55,6 +57,7 @@
         path: /home/pi/.node-red
       with_items:
         - node-red-dashboard
+        - serialport
         - node-red-node-arduino
 
 
