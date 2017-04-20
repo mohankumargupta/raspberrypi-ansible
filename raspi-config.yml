@@ -10,5 +10,5 @@
       become: true
 
     - name: Enable serial
-      shell: "raspi-config nonint do_serial 1"
+      shell: "raspi-config nonint do_serial 0"
       become: true
