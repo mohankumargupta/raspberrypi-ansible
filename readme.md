@@ -18,9 +18,10 @@ sudo apt-get -y install ansible
 ```
 
 6. Download this repo onto the computer
-   - git clone https://github.com/mohankumargupta/raspberrypi-ansible.git
-
-     cd raspberrypi-ansible
+```sh
+git clone https://github.com/mohankumargupta/raspberrypi-ansible.git
+cd raspberrypi-ansible
+```
      
 7. Change IP address in hosts file in this directory
    (use Advanced IP Scanner or nmap)
