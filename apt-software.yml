@@ -5,7 +5,6 @@
     - name: Get latest Raspbian updates
       apt: 
         update_cache: yes
-        upgrade: yes
       become: true
 
     - name: Make sure there are no broken packages
