@@ -8,6 +8,6 @@
 - include: raspi-config.yml
   tags:
     - config
-- include: node-red.yml
+- include: node-red-better-upgrade-method.yml
   tags:
     - nodered

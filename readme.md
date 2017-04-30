@@ -1,5 +1,20 @@
 # Use Ubuntu computer to prepare a custom Raspbian image from a virgin Raspbian image
 
+## How it works
+Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty file called ssh in the root
+of SD card to enable SSH), then setup a Linux computer with Ansible installed, then run the playbook in this 
+repo, and you end up with a more useable Raspbian install.
+
+## Features
+
+- Get updates
+- Configure keyboard layout for US
+- Installs an on-screen keyboard, Arduino IDE, audacity,
+  vlc
+- Updates NodeJS, NodeRed and installs node-red-dashboard
+  and node-red-node-arduino
+
+# Detailed Instructions
 
 ## On the Raspberry Pi (target device)
 1. Download latest raspbian from https://www.raspberrypi.org
