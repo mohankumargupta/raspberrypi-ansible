@@ -25,4 +25,11 @@
         - build-essential  
       become: true
 
+    - name: Install grafana
+      apt:
+        deb: https://github.com/fg2it/grafana-on-raspberry/releases/download/v4.2.0/grafana_4.2.0_armhf.deb
+
+
+  
+
  

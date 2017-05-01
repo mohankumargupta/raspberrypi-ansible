@@ -29,7 +29,7 @@ repo, and you end up with a more useable Raspbian install.
 ```sh
 sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get -y install ansible
+sudo apt-get -y install ansible python-pexpect
 ```
 
 6. Download this repo onto the computer
@@ -38,7 +38,15 @@ git clone https://github.com/mohankumargupta/raspberrypi-ansible.git
 cd raspberrypi-ansible
 ```
      
-7. Change IP address in hosts file in this directory
-   (use Advanced IP Scanner or nmap)
-8. Setup ssh keyless login with Raspberry Pi target (ssh-keygen, ssh-copy-id)
-9. Run ansible-playbook -i hosts playbook.yml
+7. Change the IP address of Raspberry Pi in the hosts file in the raspberrypi-ansible directory
+(use Advanced IP Scanner or nmap if running pi headless)
+8. Setup ssh keyless login with Raspberry Pi target (replace PI_IP_ADDRESS with IP Address of Pi)
+```sh
+ssh-keygen
+ssh-copy-id pi@PI_IP_ADDRESS 
+```
+9. Run the following
+```sh 
+ansible-playbook -i hosts playbook.yml
+```
+
