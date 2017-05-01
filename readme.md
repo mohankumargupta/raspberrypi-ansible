@@ -29,7 +29,7 @@ repo, and you end up with a more useable Raspbian install.
 ```sh
 sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get -y install ansible python-pexpect python-apt
+sudo apt-get -y install ansible python-pexpect python-apt aptitude
 ```
 
 6. Download this repo onto the computer
