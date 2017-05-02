@@ -9,10 +9,10 @@ repo, and you end up with a more useable Raspbian install.
 
 - Get updates
 - Configure keyboard layout for US
-- Installs an on-screen keyboard, Arduino IDE, audacity,
-  vlc
-- Updates NodeJS, NodeRed and installs node-red-dashboard
-  and node-red-node-arduino
+- Install an on-screen keyboard
+- Install Arduino IDE, audacity, vlc, grafana
+- Updates NodeJS and NodeRed
+- Install node-red-dashboard, node-red-node-arduino, node-red-contrib-sms-telstra, node-red-contrib-influxdb
 
 # Detailed Instructions
 
@@ -50,3 +50,13 @@ ssh-copy-id pi@PI_IP_ADDRESS
 ansible-playbook -i hosts playbook.yml
 ```
 
+# Services available external to Pi on the same LAN
+
+- Node-RED http://PI_IP_ADDRESS:1880
+- RealVNC (To use VNC Cloud Connect, see )
+- SSH
+
+# TODO
+
+- install ngrok
+- install LAMP
