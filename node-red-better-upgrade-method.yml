@@ -1,0 +1,28 @@
+---
+- name: Upgrade nodejs and npm to latest
+  hosts: raspberrypis
+  tasks:
+    - name: Download nodejs and nodered update script
+      get_url:
+        url: https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered
+        dest: /tmp
+
+    - name: Run nodejs and nodered upgrade script
+      shell: 'yes | bash /tmp/update-nodejs-and-nodered'
+
+    - name: Install node-red modules
+      npm: 
+        name: "{{ item }}"
+        path: /home/pi/.node-red
+      with_items:
+        - node-red-dashboard
+        - node-red-node-arduino
+        - node-red-contrib-sms-telstra
+        - node-red-contrib-influxdb
+
+    - name: start and enable nodered service
+      systemd:
+        name: nodered
+        enabled: yes
+        state: started
+      become: yes
