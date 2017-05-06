@@ -29,7 +29,7 @@ repo, and you end up with a more useable Raspbian install.
 ```sh
 sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get -y install ansible python-pexpect python-apt aptitude
+sudo apt-get -y install ansible python-apt aptitude mysql-client
 ```
 
 6. Download this repo onto the computer
@@ -47,8 +47,12 @@ ssh-copy-id pi@PI_IP_ADDRESS
 ```
 9. Run the following
 ```sh 
-ansible-playbook -i hosts playbook.yml
+bash run.sh
 ```
+
+Note that Ansible playbooks are idempotent, meaning
+that the state of system is the same the first time
+you run it or subsequent times (useful if it is interrupted for some reason.)
 
 # Services available external to Pi on the same LAN
 

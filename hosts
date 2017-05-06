@@ -1,2 +1,2 @@
 [raspberrypis]
-sdcard2 ansible_host=192.168.81.46 ansible_user=pi ansible_password=raspberry
+rpi1 ansible_host=10.10.10.165 ansible_user=pi

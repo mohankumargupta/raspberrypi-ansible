@@ -1,0 +1,19 @@
+#!/bin/bash
+wget --no-check-certificate -O /tmp/wordpress.tar.gz 
+tar xvzf /tmp/wordpress.tar.gz
+cp /tmp/wp-config-sample.php /tmp/wp-config.php
+perl -pi -e "s/database_name_here/{{wordpress_db_name}}/g" /tmp/wp-config.php
+perl -pi -e "s/username_here/{{wordpress_db_user}}/g" /tmp/wp-config.php
+perl -pi -e "s/password_here/{{wordpress_db_password}}/g" /tmp/wp-config.php
+perl -i -pe'
+  BEGIN {
+    @chars = ("a" .. "z", "A" .. "Z", 0 .. 9);
+    push @chars, split //, "!@#$%^&*()-_ []{}<>~\`+=,.;:/?|";
+    sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
+  }
+  s/put your unique phrase here/salt()/ge
+' /tmp/wp-config.php
+mkdir /tmp/wp-content/uploads
+chmod 775 /tmp/wp-content/uploads
+mkdir -p {{wordpress_install_directory}}
+mv /tmp/wordpress/* {{wordpress_install_directory}}

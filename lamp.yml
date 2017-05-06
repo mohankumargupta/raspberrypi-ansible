@@ -1,0 +1,15 @@
+---
+- name: Install LAMP(Apache, MySQL, PHP)
+  hosts: raspberrypis
+  vars:
+    php_packages:
+      - libapache2-mod-php5
+      - php5-mysql
+  roles:
+    - geerlingguy.apache
+    - geerlingguy.php    
+    - geerlingguy.mysql
+  become: true
+
+
+

@@ -1,15 +1,14 @@
 ---
 - name: Install and update software through apt
   hosts: raspberrypis
+  become: true
   tasks:
     - name: Get latest Raspbian updates
       apt: 
         update_cache: yes
-      become: true
 
     - name: Make sure there are no broken packages
       command: apt-get -y -f install
-      become: true 
 
     - name: Install software
       apt:
@@ -22,13 +21,15 @@
         - at-spi2-core
         - florence 
         - realvnc-vnc-server  
-        - build-essential  
-      become: true
+        - build-essential 
+
+    - name: Install influxdb
+      apt:
+        deb: https://repos.influxdata.com/debian/pool/stable/i/influxdb/influxdb_1.2.2-1_armhf.deb
 
     - name: Install grafana
       apt:
         deb: https://github.com/fg2it/grafana-on-raspberry/releases/download/v4.2.0/grafana_4.2.0_armhf.deb
-      become: true
       
 
 

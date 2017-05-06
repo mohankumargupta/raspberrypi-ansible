@@ -1,0 +1,91 @@
+- name: Install wordpress
+  hosts: raspberrypis
+  become: true
+  vars:
+    wordpress_tmp_install_dir: '/root/tmp'
+    wordpress_install_dir: '/var/www/html/wordpress'
+    wordpress_admin_password: 'password'
+    wordpress_db_name: 'wordpress'
+    wordpress_db_user: 'root'
+    wordpress_db_password: 'root'
+  tasks:
+    - name: Create a directory called /root/tmp
+      file:
+        path: /root/tmp
+        state: directory
+
+    - name: Download and Extract wordpress tarball
+      unarchive:
+        src: https://wordpress.org/latest.tar.gz
+        dest: "{{wordpress_tmp_install_dir}}"
+        remote_src: true
+
+    - name: Copy wp-config-sample.php to wp-config.php
+      copy:
+        src: "{{wordpress_tmp_install_dir}}/wordpress/wp-config-sample.php"
+        dest: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        remote_src: true
+        force: yes
+
+    - name: Replace db username in wp-config.php
+      lineinfile:
+        path: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        regexp: "(.*)username_here(.*)"
+        line: '\1{{wordpress_db_user}}\2'
+        backrefs: yes
+
+    - name: Replace db password in wp-config.php
+      lineinfile:
+        path: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        regexp: "(.*)password_here(.*)"
+        line: '\1{{wordpress_db_password}}\2'
+        backrefs: yes
+
+    - name: Replace db name in wp-config.php
+      lineinfile:
+        path: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        regexp: "(.*)database_name_here(.*)"
+        line: '\1{{wordpress_db_name}}\2'
+        backrefs: yes  
+
+    - name: delete lines in wp-config.php
+      replace:
+        path: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        regexp: "(.*)put your unique phrase here(.*)"
+        
+    - name: Download salt file 
+      get_url:
+        url: https://api.wordpress.org/secret-key/1.1/salt
+        dest: "{{wordpress_tmp_install_dir}}/salt.txt"
+
+    - name: Get contents of salt file 
+      slurp:
+        src: "{{wordpress_tmp_install_dir}}/salt.txt" 
+      register: salts_content
+
+    - name: Append salt file content to wp-config.php
+      blockinfile:
+        path: "{{wordpress_tmp_install_dir}}/wordpress/wp-config.php"
+        block: "{{ salts_content['content'] | b64decode }}"
+        insertafter: "EOF"
+
+    - name: Copy wordpress tmp install dir to final directory
+      shell: "rsync -av {{wordpress_tmp_install_dir}}/wordpress/  {{wordpress_install_dir}}"
+
+    - name: Delete previous instances of wordpress mysql database
+      mysql_db:
+        name: wordpress
+        state: absent
+
+    - name: Create mysql database called wordpress
+      mysql_db:
+        name: wordpress
+
+    - name: Download wp-cli
+      get_url:
+        url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        dest: "{{wordpress_tmp_install_dir}}" 
+
+    - name: Install wordpress using wp-cli
+      shell: "php {{wordpress_tmp_install_dir}}/wp-cli.phar core install --allow-root --url='http://localhost/wordpress' --path={{wordpress_install_dir}} --title='My wordpress website' --admin_user='admin' --admin_password={{wordpress_admin_password}} --admin_email='a@b.com'"
+

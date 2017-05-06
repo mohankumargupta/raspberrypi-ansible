@@ -1,0 +1,3 @@
+cat<<EOF | mail -s "sending with ssmtp with bash script" melbpc.computera@gmail.com
+http://google.com
+EOF

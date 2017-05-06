@@ -1,0 +1,7 @@
+From: raspberrypisig@gmail.com
+To: melbpc.computera@gmail.com
+Subject: sending with ssmtp
+Content-Type: text/html
+<a href="http://google.com">google</a>
+
+ 

@@ -9,6 +9,13 @@
 
     - name: Run nodejs and nodered upgrade script
       shell: 'yes | bash /tmp/update-nodejs-and-nodered'
+      register: update-nodejs-and-nodered
+
+    - name: Debugging nodered and nodejs Install
+      debug:
+        var: update-nodejs-and-nodered
+        verbosity: 2
+
 
     - name: Install node-red modules
       npm: 
