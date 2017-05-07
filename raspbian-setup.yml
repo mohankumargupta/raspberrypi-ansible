@@ -10,5 +10,33 @@
       shell: 'echo pi:{{PI_USER_PASSWORD}} | chpasswd'
       become: true
 
+    - name: Setup wifi
+      copy:
+        src: wpa_supplicant.conf
+        dest: /etc/wpa_supplicant/wpa_supplicant.conf
+      become: true
+
+    - name: Enable serial
+      shell: "raspi-config nonint do_serial 0"
+      become: true
+
+    - name: Enable I2C
+      shell: "raspi-config nonint do_i2c 0"
+      become: true
+
+    - name: Enable SPI
+      shell: "raspi-config nonint do_spi 0"
+      become: true
+
+    - name: Enable Camera
+      shell: "raspi-config nonint do_camera 0"
+      become: true
+
+    - name: Enable VNC
+      shell: "raspi-config nonint do_vnc 0"
+      become: true
+
+
+
 
   
