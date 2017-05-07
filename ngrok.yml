@@ -11,7 +11,7 @@
 
     - name: Copy ngrok systemd file
       copy:
-        src: nkgrok.service
+        src: ngrok.service
         dest: /etc/systemd/system
       notify: start and enable ngrok
 
