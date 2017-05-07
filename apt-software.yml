@@ -15,13 +15,16 @@
         name: "{{ item }}"
         state: present
       with_items:
-        - arduino
-        - audacity
-        - vlc
         - at-spi2-core
-        - florence 
-        - realvnc-vnc-server  
+        - florence  
+        - realvnc-vnc-server 
         - build-essential 
+
+    - name: Install software from group_vars/raspberrypis.yml
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ RASPBIAN_APT_INSTALL }}"
 
     - name: Install influxdb
       apt:

@@ -1,2 +1,2 @@
 [raspberrypis]
-rpi1 ansible_host=10.10.10.165 ansible_user=pi
+raspberrypi ansible_host=10.10.10.165 ansible_user=pi

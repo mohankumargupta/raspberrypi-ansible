@@ -21,11 +21,8 @@
       npm: 
         name: "{{ item }}"
         path: /home/pi/.node-red
-      with_items:
-        - node-red-dashboard
-        - node-red-node-arduino
-        - node-red-contrib-sms-telstra
-        - node-red-contrib-influxdb
+      with_items: "{{ NODERED_MODULES }}"
+
 
     - name: start and enable nodered service
       systemd:

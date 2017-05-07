@@ -1,23 +1,32 @@
 ---
-- include: wifi.yml
-  tags:
-    -wifi
+# If you see {{SOME_VARIABLE}} in the yml files, these are 
+# Ansible variables, defined in the group_vars directory 
+
 
 - include: apt-software.yml
   tags:
     - apt
+
+- include: raspbian-setup.yml
+  tags: raspbiansetup
+
 - include: keyboard-layout.yml
   tags:
     - keyboard
-- include: raspi-config.yml
-  tags:
-    - config
+
 - include: node-red-better-upgrade-method.yml
   tags:
     - nodered
+
 - include: lamp.yml
   tags:
     - lamp
+
 - include: wordpress.yml
   tags:
     - wordpress
+
+- include: ngrok.yml
+  tags:
+    - ngrok
+

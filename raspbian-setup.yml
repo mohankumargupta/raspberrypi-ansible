@@ -1,0 +1,14 @@
+---
+- name: First-time setup
+  hosts: raspberrypis
+  tasks:
+    - name: Rename hostname
+      shell: 'echo {{inventory_hostname}} > /etc/hostname'
+      become: true
+
+    - name: Change password for user pi
+      shell: 'echo pi:{{PI_USER_PASSWORD}} | chpasswd'
+      become: true
+
+
+  
