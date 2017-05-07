@@ -1,8 +1,8 @@
-# Use Ubuntu computer to prepare a custom Raspbian image from a virgin Raspbian image
+# Start with a vanilla Raspbian image, end up with a turbocharged custom Raspbian image 
 
 ## How it works
 Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty file called ssh in the root
-of SD card to enable SSH), then setup a Linux computer with Ansible installed, then run the playbook in this 
+of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless), then setup a  Debian-based (Linux Mint, Ubuntu, Debian) computer with Ansible installed, then run the playbook in this 
 repo, and you end up with a more useable Raspbian install.
 
 ## Features
@@ -10,9 +10,13 @@ repo, and you end up with a more useable Raspbian install.
 - Get updates
 - Configure keyboard layout for US
 - Install an on-screen keyboard
+- Enables VNC (need to manually Sign in for VNC Cloud Connect), Serial
 - Install Arduino IDE, audacity, vlc, grafana
 - Updates NodeJS and NodeRed
-- Install node-red-dashboard, node-red-node-arduino, node-red-contrib-sms-telstra, node-red-contrib-influxdb
+- Installs NodeRED modules
+- Installs LAMP(Apache, MySQL,PHP)
+- Installs ngrok to allow webserver access over the internet
+- Install nginx as a reverse proxy to access http-based applications (NodeRED, apache, wordpress, grafana) available over the internet
 
 # Detailed Instructions
 
@@ -57,10 +61,10 @@ you run it or subsequent times (useful if it is interrupted for some reason.)
 # Services available external to Pi on the same LAN
 
 - Node-RED http://PI_IP_ADDRESS:1880
-- RealVNC (To use VNC Cloud Connect, see )
+- RealVNC (To use VNC Cloud Connect, see https://www.realvnc.com/docs/raspberry-pi.html)
 - SSH
+- Apache
+- Wordpress
 
 # TODO
-
-- install ngrok
-- install LAMP
+Install and configure nginx
