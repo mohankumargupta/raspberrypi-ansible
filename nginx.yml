@@ -1,0 +1,25 @@
+---
+- name: Install nginx as a reverse proxy to be used in conjection with ngrok to access http-based applications over the internet
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Copy config file
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/sites-available
+
+    - name: Move config file
+      command: mv /etc/nginx-sites-available/nginx.conf /etc/nginx/sites-available/default
+      notify: restart systemd
+
+  handler:
+    - name: restart systemd
+    - systemd:
+        daemon-reload: yes
+
+ 

@@ -2,7 +2,7 @@
 
 ## How it works
 Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty file called ssh in the root
-of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless), then setup a  Debian-based (Linux Mint, Ubuntu, Debian) computer with Ansible installed, then run the playbook in this 
+of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless, see wpa_supplicant-sample.conf for an example), then setup a  Debian-based (Linux Mint, Ubuntu, Debian) computer with Ansible installed, then run the playbook in this 
 repo, and you end up with a more useable Raspbian install.
 
 ## Features

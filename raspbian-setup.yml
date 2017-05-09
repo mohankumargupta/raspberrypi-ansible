@@ -1,40 +1,77 @@
 ---
-- name: First-time setup
+- name: Raspberry Pi Basic Settings
   hosts: raspberrypis
+  become: true
   tasks:
     - name: Rename hostname
       shell: 'echo {{inventory_hostname}} > /etc/hostname'
-      become: true
 
     - name: Change password for user pi
       shell: 'echo pi:{{PI_USER_PASSWORD}} | chpasswd'
-      become: true
 
     - name: Setup wifi
       copy:
         src: wpa_supplicant.conf
         dest: /etc/wpa_supplicant/wpa_supplicant.conf
-      become: true
+      when: RASPBIAN_OVERRIDE_WIFI_SETTINGS
 
     - name: Enable serial
       shell: "raspi-config nonint do_serial 0"
-      become: true
+      when: RASPICONFIG_ENABLE_SERIAL
 
     - name: Enable I2C
       shell: "raspi-config nonint do_i2c 0"
-      become: true
+      when: RASPICONFIG_ENABLE_I2C
 
     - name: Enable SPI
       shell: "raspi-config nonint do_spi 0"
-      become: true
+      when: RASPICONFIG_ENABLE_SPI
 
     - name: Enable Camera
       shell: "raspi-config nonint do_camera 0"
-      become: true
+      when: RASPICONFIG_ENABLE_CAMERA
 
     - name: Enable VNC
       shell: "raspi-config nonint do_vnc 0"
-      become: true
+      when: RASPICONFIG_ENABLE_VNC
+
+    - name: Enable OneWire
+      shell: "raspi-config nonint do_onewire 0"
+      when: RASPICONFIG_ENABLE_ONEWIRE
+
+    - name: Enable Remote GPIO
+      shell: "raspi-config nonint do_rgpio 0"
+      when: RASPICONFIG_ENABLE_RGPIO
+
+    - name: Disable serial
+      shell: "raspi-config nonint do_serial 0"
+      when: not RASPICONFIG_ENABLE_SERIAL
+
+    - name: Disable I2C
+      shell: "raspi-config nonint do_i2c 0"
+      when: not RASPICONFIG_ENABLE_I2C
+
+    - name: Disable SPI
+      shell: "raspi-config nonint do_spi 0"
+      when: not RASPICONFIG_ENABLE_SPI
+
+    - name: Disable Camera
+      shell: "raspi-config nonint do_camera 0"
+      when: not RASPICONFIG_ENABLE_CAMERA
+
+    - name: Disable VNC
+      shell: "raspi-config nonint do_vnc 0"
+      when: not RASPICONFIG_ENABLE_VNC
+
+    - name: Disable OneWire
+      shell: "raspi-config nonint do_onewire 0"
+      when: not RASPICONFIG_ENABLE_ONEWIRE
+
+    - name: Disable Remote GPIO
+      shell: "raspi-config nonint do_rgpio 0"
+      when: not RASPICONFIG_ENABLE_RGPIO
+
+
 
 
 

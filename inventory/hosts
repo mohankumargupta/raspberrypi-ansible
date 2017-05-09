@@ -1,5 +1,0 @@
-# Users should edit this file
-# Format of this file http://docs.ansible.com/ansible/intro_inventory.html
-
-[raspberrypis]
-raspberrypi ansible_host=10.10.10.165 ansible_user=pi

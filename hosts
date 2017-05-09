@@ -1,2 +1,13 @@
+# Users should edit this file
+# http://docs.ansible.com/ansible/intro_inventory.html
+#
+# Users should change the ansible_host IP address to the Raspberry 
+# Pi IP address. Users can also change raspberrypi to another
+# hostname.
+
 [raspberrypis]
 raspberrypi ansible_host=10.10.10.165 ansible_user=pi
+
+
+
+
