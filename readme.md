@@ -62,7 +62,7 @@ bash run.sh
 
 Note that Ansible playbooks are idempotent, meaning
 that the state of system is the same the first time
-you run it or subsequent times (useful if it is interrupted for some reason.)
+you run it or subsequent times. So if the above script hangs or is interrupted for whatever reason, just re-run it again. It will skip over the bits it's done, and push ahead.
 
 # Services available external to Pi on the same LAN
 
