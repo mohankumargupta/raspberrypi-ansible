@@ -11,5 +11,16 @@
     - geerlingguy.mysql
   become: true
 
+- name: Copy index.html to /var/www/html
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Copy index.html to /var/www/html
+      copy:
+        src: index.html
+        dest: /var/www/html
+
+
+
 
 
