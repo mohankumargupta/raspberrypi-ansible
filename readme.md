@@ -72,5 +72,6 @@ list of web-based services available on the Pi.
 
 # TODO
 - Install nginx as a reverse proxy to access http-based applications (NodeRED, apache, wordpress, grafana) over the internet with the help of ngrok
+- Install docker, some sample containers, and management-related tools 
 
 
