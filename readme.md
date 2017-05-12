@@ -5,6 +5,12 @@ Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty fil
 of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless, see wpa_supplicant-sample.conf for an example), then setup a  Debian-based (Linux Mint, Ubuntu, Debian) computer with Ansible installed, then run the playbook in this 
 repo, and you end up with a more useable Raspbian install.
 
+## User configuration files
+hosts: Change IP address of Pi and optionally hostname
+group_vars/raspberrypis.yml: Lots of stuff like software
+to install, nodered modules to install, enable camera.
+
+
 ## Features
 
 - Get updates
@@ -16,7 +22,7 @@ repo, and you end up with a more useable Raspbian install.
 - Installs NodeRED modules
 - Installs LAMP(Apache, MySQL,PHP)
 - Installs ngrok to allow webserver access over the internet
-- Install nginx as a reverse proxy to access http-based applications (NodeRED, apache, wordpress, grafana) available over the internet
+
 
 # Detailed Instructions
 
@@ -60,11 +66,11 @@ you run it or subsequent times (useful if it is interrupted for some reason.)
 
 # Services available external to Pi on the same LAN
 
-- Node-RED http://PI_IP_ADDRESS:1880
-- RealVNC (To use VNC Cloud Connect, see https://www.realvnc.com/docs/raspberry-pi.html)
-- SSH
-- Apache
-- Wordpress
+Once the above commands have been run, on the pi
+you can go to http://localhost or on another machine on the same network, go to http://PI_IP_ADDRESS to get a 
+list of web-based services available on the Pi.
 
 # TODO
-Install and configure nginx
+- Install nginx as a reverse proxy to access http-based applications (NodeRED, apache, wordpress, grafana) over the internet with the help of ngrok
+
+

@@ -1,5 +1,5 @@
 ---
-- name: Install and run nkgrok
+- name: Install ngrok
   hosts: raspberrypis
   become: true
   tasks:
@@ -9,18 +9,7 @@
         remote_src: true
         dest: /usr/local/bin
 
-    - name: Copy ngrok systemd file
-      copy:
-        src: ngrok.service
-        dest: /etc/systemd/system
-      notify: start and enable ngrok
 
-  handlers:
-    - name: start and enable ngrok
-      systemd:
-        name: ngrok
-        state: started
-        enabled: yes
 
 
 

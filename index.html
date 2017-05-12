@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raspberry Pi Index Page</title>
+<style>
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+var hostname = window.location.hostname;
+var links = document.links;
+for (var i=0; i<links.length;i++){
+ var newhref = links[i].href.replace('PLACEHOLDER', hostname);
+ newhref = newhref.replace('placeholder', hostname);
+ links[i].href =  newhref;
+}
+
+});
+
+
+</script>
+</head>
+<body>
+
+<ul>
+  <li><a target="_blank" href="">OPEN ALL LINKS BELOW IN NEW TAB</a></li>
+  <li><a target="_blank" href="http://PLACEHOLDER:1880">NodeRED</a></li>
+  <li><a target="_blank" target="_blank" href="/">Apache</a></li>
+  <li><a target="_blank" href="/wordpress">Wordpress</a>< /li> 
+  <li><a target="_blank" href="http://PLACEHOLDER:3000">Grafana</a></li>
+  <li><a href="http://PLACEHOLDER:4040/api/tunnels">ngrok tunnels</a></li>
+  <li><a target="_blank" href="index.php?ngrok">This Page Public Web Address</a></li>
+</ul>
+
+
+
+</body>
+</html>

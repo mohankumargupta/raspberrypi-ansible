@@ -2,17 +2,10 @@
 - name: Change keyboard layout to US
   hosts: raspberrypis 
   tasks:    
-    - name: Download script to change keyboard layout
-      get_url:
-        url: 'https://gist.githubusercontent.com/raspberrypisig/b92d3ab92a51d74b857da9bc02958d56/raw/004f2609f40e848d127b66edd8b69b210727a945/setupKeyboardonPi.sh'
-        dest: /tmp/setupKeyboard.sh
-        mode: 0555
-
-    - name: Delete a line in the file
-      lineinfile:
-        regexp: "^sudo debconf-set-selections <<< 'console-data console-data/keymap/policy select Select keymap from full list'"
-        line: ""
-        path: /tmp/setupKeyboard.sh
+    - name: Copy setupkeyboard.sh to pi
+      copy:
+        src: setupkeyboard.sh
+        dest: /tmp/setupkeyboard.sh
 
     - name: debconf settings
       debconf:
@@ -23,5 +16,7 @@
       become: true
     
     - name: Run keyboard layout change script
-      shell: /tmp/setupKeyboard.sh
+      command: bash /tmp/setupkeyboard.sh
       become: true
+
+

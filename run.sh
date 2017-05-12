@@ -7,3 +7,5 @@ ansible-galaxy install geerlingguy.apache
 ansible-galaxy install geerlingguy.mysql
 ansible-galaxy install geerlingguy.php
 ansible-playbook --verbose -i hosts playbook.yml
+
+

@@ -1,0 +1,6 @@
+web_addr: 0.0.0.0:4040
+tunnels:
+  apache:
+    addr: 80
+    proto: http
+    

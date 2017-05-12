@@ -14,12 +14,18 @@
         dest: /etc/nginx/sites-available
 
     - name: Move config file
-      command: mv /etc/nginx-sites-available/nginx.conf /etc/nginx/sites-available/default
-      notify: restart systemd
+      command: mv /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-available/default
+      notify: reload nginx
 
-  handler:
-    - name: restart systemd
-    - systemd:
+    - name: Copy nginx.html
+      copy:
+        src: nginx.html
+        dest: /usr/share/nginx/html
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: nginx
         daemon-reload: yes
 
  
