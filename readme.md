@@ -60,9 +60,19 @@ ssh-copy-id pi@PI_IP_ADDRESS
 bash run.sh
 ```
 
+Be patient, it can take up to 40 minutes to complete.
+
 Note that Ansible playbooks are idempotent, meaning
 that the state of system is the same the first time
-you run it or subsequent times. So if the above script hangs or is interrupted for whatever reason, just re-run it again. It will skip over the bits it's done, and push ahead.
+you run it or subsequent times (take with a grain of salt). 
+
+## Troubleshooting/Tips
+- If the above script (bash run.sh) hangs or is interrupted for whatever reason, just re-run it again. 
+ It will skip over the bits it's already done, and push ahead.
+- You only need to do the ssh-keygen command one-time
+on the Control Ubuntu PC for a particular user on that system.   
+- If you get a MAN IN THE MIDDLE error when doing the 
+ssh-copy-id command, it means you have done the SSH keyless exchange with a previous raspbian install, just type the command recommended in the error message.
 
 # Services available external to Pi on the same LAN
 
