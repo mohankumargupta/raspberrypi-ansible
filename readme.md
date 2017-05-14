@@ -6,14 +6,16 @@ of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically 
 repo, and you end up with a more useable Raspbian install.
 
 ## User configuration files
-hosts: Change IP address of Pi and optionally hostname
-group_vars/raspberrypis.yml: Lots of stuff like software
+**hosts**: Change IP address of Pi and optionally hostname
+
+**group_vars/raspberrypis.yml**: Lots of stuff like software
 to install, nodered modules to install, enable camera.
 
 
 ## Features
 
 - Get updates
+- Change hostname and password for user called pi
 - Configure keyboard layout for US
 - Install an on-screen keyboard
 - Enables VNC (need to manually Sign in for VNC Cloud Connect), Serial
