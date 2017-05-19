@@ -1,0 +1,31 @@
+---
+- name: Install prerequisites on host control computer
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name: "{{item}}"
+      with_items:
+        - python-virtualenv
+        - python-pip
+
+- name: Install python modules via apt-get and pip
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Install python2 modules via apt-get
+      apt:
+        name: "{{item}}"
+        state: latest
+      with_items: "{{PYTHON2_APT_MODULES}}"
+      when: PYTHON_INSTALL_MODULES
+
+    - name: Install python2 modules via pip
+      pip:
+        name: "{{item}}"
+        state: latest
+      with_items: "{{PYTHON2_PIP_MODULES}}"
+      when: PYTHON_INSTALL_MODULES
+
+

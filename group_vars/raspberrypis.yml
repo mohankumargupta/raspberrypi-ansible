@@ -39,6 +39,23 @@ NODERED_MODULES:
   - node-red-contrib-sms-telstra
   - node-red-contrib-influxdb
 
+# Python
+PYTHON_INSTALL_MODULES: true
+
+# Python 2 modules available via apt-get install
+PYTHON2_APT_MODULES:
+  - python-easygui
+  - python-bottle
+  - python-dev
+
+# Python 2 modules via pip
+PYTHON2_PIP_MODULES:
+  - pip
+  - setuptools
+
+
+
+
 
 
 
