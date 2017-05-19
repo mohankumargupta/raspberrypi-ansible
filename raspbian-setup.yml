@@ -9,6 +9,25 @@
     - name: Change password for user pi
       shell: 'echo pi:{{PI_USER_PASSWORD}} | chpasswd'
 
+    - name: Disable bluetooth LE
+      systemd:
+        name: bluetooth
+        enabled: no
+        state: stopped
+
+      when: not RASPBIAN_ENABLE_BLUETOOTH
+      tags:
+        - bluetooth
+
+    - name: Enable bluetooth LE
+      systemd:
+        name: bluetooth
+        enabled: yes
+        state: started
+      when: RASPBIAN_ENABLE_BLUETOOTH
+      tags:
+        -bluetooth
+
     - name: Setup wifi
       copy:
         src: wpa_supplicant.conf
