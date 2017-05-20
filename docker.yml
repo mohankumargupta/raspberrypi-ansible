@@ -1,0 +1,30 @@
+---
+- name: Install docker Ansible prerequisite on control ubuntu PC
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name: "{{item}}"
+      with_items:
+        - docker-compose
+        - PyYAML
+
+
+- name: Docker containers
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Prerequisite for installing docker on raspberrypis
+      apt:
+        name: lsb-release
+        state: latest
+
+    - name: Install Docker
+      shell: "curl -sSL https://get.docker.com | bash"
+     
+    - name: Install docker containers via docker compose
+      docker_service:
+        project_src: .
+
+

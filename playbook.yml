@@ -2,6 +2,9 @@
 # If you see {{SOME_VARIABLE}} in the yml files, these are 
 # Ansible variables, defined in the group_vars directory 
 
+- include: prerequisites.yml
+  tags:
+    - prerequisites
 
 - include: apt-software.yml
   tags:

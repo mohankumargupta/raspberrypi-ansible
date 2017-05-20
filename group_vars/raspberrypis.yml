@@ -53,6 +53,15 @@ PYTHON2_PIP_MODULES:
   - pip
   - setuptools
 
+# Python 3 modules available via apt-get
+PYTHON3_APT_MODULES:
+  - python3-dev
+
+# Python 3 modules via pip
+PYTHON3_PIP_MODULES:
+  - pip
+  - setuptools
+
 
 
 

@@ -1,0 +1,32 @@
+version: '2'
+services:
+
+  portainer:
+    image: portainer/portainer:linux-arm
+    ports:
+      - "9000:9000" 
+
+  reverseproxy:
+    image: hypriot/rpi-traefik
+    ports:
+      - "8080:8080"
+      - "80:80"
+
+  web:
+    image: armhf/php:5.6-apache
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    volumes:
+      - ./html:/var/www/html
+  db:
+    image: hypriot/rpi-mysql
+    volumes:
+      - ./mysql:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: helloworld
+
+
+  

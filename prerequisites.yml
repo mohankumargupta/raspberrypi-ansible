@@ -1,0 +1,13 @@
+---
+- name: Install Ansible prerequisites on control PC
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name: "{{item}}"
+        state: latest
+      with_items:
+        - python-apt 
+        - aptitude 
+        - mysql-client
