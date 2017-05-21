@@ -7,9 +7,12 @@
       apt:
         name: "{{item}}"
       with_items:
+        - python-pip
         - docker-compose
-        - PyYAML
-
+    
+    - name: Install pyyaml
+      pip:
+        name: PyYAML
 
 - name: Docker containers
   hosts: raspberrypis
@@ -20,11 +23,42 @@
         name: lsb-release
         state: latest
 
+    - name: Python install Hack
+      shell: "easy_install -U pip"
+
+    - name: install python docker module
+      pip:
+        name: "{{item}}"
+      with_items:
+        - docker
+        - "docker-compose"
+      tags:
+        - dockercompose
+
     - name: Install Docker
       shell: "curl -sSL https://get.docker.com | bash"
-     
+      register: output
+
+    - name: Debug output
+      debug:
+        msg: "{{output.stdout_lines}}"
+
+    - name: Copy docker-compose to pi
+      copy:
+        src: docker-compose.yml
+        dest: /root
+      tags:
+        - dockercompose
+
+    - name: Copy files
+      copy:
+        src: files
+        dest: /root
+
     - name: Install docker containers via docker compose
       docker_service:
-        project_src: .
+        project_src: /root
+      tags:
+        - dockercompose
 
 

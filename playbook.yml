@@ -21,25 +21,11 @@
   tags:
     - nodered
 
-- include: lamp.yml
-  tags:
-    - lamp
-
-- include: wordpress.yml
-  tags:
-    - wordpress
-
-- include: ngrok.yml
-  tags:
-    - ngrok
-
 - include: python.yml
   tags:
     - python
 
-
-
-
-
-
+- include: docker.yml
+  tags:
+    - docker
 

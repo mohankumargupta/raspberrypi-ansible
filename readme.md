@@ -41,7 +41,7 @@ to install, nodered modules to install, enable camera.
 ```sh
 sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get -y install ansible python-apt aptitude mysql-client
+sudo apt-get -y install ansible
 ```
 
 6. Download this repo onto the computer

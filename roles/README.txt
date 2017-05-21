@@ -1,1 +1,0 @@
-This is required by Ansible to store Ansible roles

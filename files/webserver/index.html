@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raspberry Pi Index Page</title>
+<style>
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+var hostname = window.location.hostname;
+var links = document.links;
+for (var i=0; i<links.length;i++){
+ var newhref = links[i].href.replace('PLACEHOLDER', hostname);
+ newhref = newhref.replace('placeholder', hostname);
+ links[i].href =  newhref;
+}
+
+});
+
+
+</script>
+</head>
+<body>
+
+<ul>
+  <li><a target="_blank" href="http://PLACEHOLDER:1880">NodeRED</a></li>    - name: Install Docker
+      shell: "curl -sSL https://get.docker.com | bash"
+      register: output
+
+    - name: Debug output
+      debug:
+        msg: "{{output.stdout_lines}}"
+  <li><a target="_blank" href="/wordpress">Wordpress</a></li> 
+  <li><a target="_blank" href="http://PLACEHOLDER:3000">Grafana</a></li>
+</ul>
+
+</body>
+</html>

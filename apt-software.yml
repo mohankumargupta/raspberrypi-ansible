@@ -26,40 +26,8 @@
         state: present
       with_items: "{{ RASPBIAN_APT_INSTALL }}"
 
-    - name: Install influxdb
-      apt:
-        deb: https://repos.influxdata.com/debian/pool/stable/i/influxdb/influxdb_1.2.2-1_armhf.deb
-      notify: start and enable influxdb
 
-    - name: Install grafana
-      apt:
-        deb: https://github.com/fg2it/grafana-on-raspberry/releases/download/v4.2.0/grafana_4.2.0_armhf.deb
-      notify: start and enable grafana
-      tags:
-        -grafana
 
-    - name: Ensure grafana is running
-      systemd:
-        name: grafana-server
-        state: started
-        enabled: yes
-        daemon-reload: yes        
-      tags:
-        - grafana
-
-  handlers:
-    - name: start and enable influxdb
-      systemd:
-        name: influxdb
-        state: started
-        enabled: yes
-
-    - name: start and enable grafana
-      systemd:
-        name: grafana-server
-        state: started
-        enabled: yes
-        daemon-reload: yes
 
 
 
