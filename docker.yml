@@ -23,9 +23,6 @@
         name: lsb-release
         state: latest
 
-    - name: Python install Hack
-      shell: "easy_install -U pip"
-
     - name: install python docker module
       pip:
         name: "{{item}}"
@@ -54,6 +51,8 @@
       copy:
         src: files
         dest: /root
+      tags:
+        - dockercompose
 
     - name: Install docker containers via docker compose
       docker_service:

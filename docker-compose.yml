@@ -3,28 +3,36 @@ services:
 
   portainer:
     image: portainer/portainer:linux-arm
+    container_name: portainer
     ports:
       - "9000:9000" 
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - /var/run/docker.sock:/var/run/docker.sock
 
   reverseproxy:
     image: hypriot/rpi-traefik
+    container_name: traefik
+    command:  --web --docker --docker.domain=localhost --logLevel=DEBUG
     ports:
       - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/etc/traefik/traefik.toml
 
   web:
     image: armhf/php:5.6-apache
+    container_name: apache
     ports:
       - "8000:80"
     depends_on:
       - db
     volumes:
-      - "./files/webserver/html:/var/www/html"
+      - /root/files/webserver/html:/var/www/html
   db:
     image: hypriot/rpi-mysql
+    container_name: mysql
     volumes:
-      - "./files/mysql:/etc/mysql/conf.d"
+      - /root/files/mysql:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: helloworld

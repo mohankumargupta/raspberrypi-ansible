@@ -9,13 +9,13 @@
       with_items:
         - python-virtualenv
         - python-pip
-        - python3-virtualenv
-        - python3-pip
 
 - name: Install python modules via apt-get and pip
   hosts: raspberrypis
   become: true
   tasks:
+    - name: Python install Hack
+      shell: "easy_install -U pip"    
     - name: Install python2 modules via apt-get
       apt:
         name: "{{item}}"
