@@ -33,11 +33,24 @@ services:
   db:
     image: hypriot/rpi-mysql
     container_name: mysql
+    ports:
+      - 3306:3306
     volumes:
       - /root/files/mysql:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: helloworld
+
+  phpmyadmin:
+    image: nidorpi/rpi-nginx-phpmyadmin
+    container_name: phpmyadmin
+    volumes:
+      - /root/files/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
+    depends_on:
+      - db
+    ports:
+      - 8001:80
+    
 
   influxdb:
     image: hypriot/rpi-influxdb
