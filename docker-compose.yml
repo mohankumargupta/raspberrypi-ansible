@@ -30,6 +30,9 @@ services:
       - db
     volumes:
       - /root/files/webserver/html:/var/www/html
+    labels:
+      - "traefik.backend=apache"
+      - "traefik.frontend.rule=Path:/"
   db:
     image: hypriot/rpi-mysql
     container_name: mysql
