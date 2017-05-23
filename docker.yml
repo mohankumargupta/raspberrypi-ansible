@@ -54,6 +54,16 @@
       tags:
         - dockercompose
 
+    - name: Copy docker-compose systemd service
+      copy:
+        src: files/docker/docker-compose.service
+        dest: /etc/systemd/system
+
+    - name: Enable docker-compose systemd service on boot
+      systemd:
+        name: docker-compose
+        enabled: yes
+
     - name: Install docker containers via docker compose
       docker_service:
         project_src: /root

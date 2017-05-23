@@ -4,6 +4,7 @@ services:
   portainer:
     image: portainer/portainer:linux-arm
     container_name: portainer
+    command: --no-auth
     ports:
       - 9000:9000 
     volumes:
@@ -15,6 +16,7 @@ services:
     command:  --web --docker --docker.domain=localhost --logLevel=DEBUG
     ports:
       - 8080:8080
+      - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /dev/null:/etc/traefik/traefik.toml
