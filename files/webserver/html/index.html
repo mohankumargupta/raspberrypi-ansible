@@ -65,9 +65,15 @@
                url: 'http://' + hostname + ':1880'
               }, 
               {
+                value: false,
+                service: 'InfluxDB'
+                port: 8086,
+                url: 'http://' + hostname + ':8086' 
+              },
+              {
                value: false,
                service: 'Grafana',
-               description: 'username:admin,password:admin',
+               description: 'username:admin,password:admin; influxdburl: http://influxdb:8086, proxy'
                port: 3000,
                url: 'http://' + hostname + ':3000'
               },
