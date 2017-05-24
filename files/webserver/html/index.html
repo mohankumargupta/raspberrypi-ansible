@@ -4,35 +4,113 @@
     <title>Raspberry Pi Index Page</title>
 <style>
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
 
-var hostname = window.location.hostname;
-var links = document.links;
-for (var i=0; i<links.length;i++){
- var newhref = links[i].href.replace('PLACEHOLDER', hostname);
- newhref = newhref.replace('placeholder', hostname);
- links[i].href =  newhref;
-}
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+ 
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+ 
 
-});
-
-
-</script>
+<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+ 
+<script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
 </head>
+
 <body>
+<h2 style="text-align:center;">Services available on Pi</h2>
 
-<ul>
-  <li><a target="_blank" href="http://PLACEHOLDER:1880">NodeRED</a></li>    - name: Install Docker
-      shell: "curl -sSL https://get.docker.com | bash"
-      register: output
+<div id="myapp">
+  <boo></boo>
+</div>
 
-    - name: Debug output
-      debug:
-        msg: "{{output.stdout_lines}}"
-  <li><a target="_blank" href="/wordpress">Wordpress</a></li> 
-  <li><a target="_blank" href="http://PLACEHOLDER:3000">Grafana</a></li>
-</ul>
+<template id="myapp-template">
+   <v-data-table
+      v-bind:headers="headers"
+      :items="items"
+      hide-actions
+      class="elevation-1"
+    >
+    <template slot="items" scope="props">
+      <td class="text-xs-center"><a v-bind:href=props.item.url>{{ props.item.service }}</a></td>
+      <td class="text-xs-right">{{props.item.port}}</td>
+      <td class="text-xs-right">{{ props.item.description}}</td>
+    </template>
+    </v-data-table>
+</template>
+
+<script type="text/javascript">
+    Vue.component('boo',{
+        data: function() { 
+            var hostname = window.location.hostname;
+            return {
+              headers: [
+              {
+                text: 'Services',
+                value: 'service'
+              },
+              {
+                text: 'Port',
+                value: 'port'
+              },
+              {
+                text: 'Description',
+                value: 'description'
+              }
+              ],
+              items: [
+              {
+               value: false,
+               service: 'NodeRED',
+               description: 'NodeRED',
+               port: 1880,
+               url: 'http://' + hostname + ':1880'
+              }, 
+              {
+               value: false,
+               service: 'Grafana',
+               description: 'username:admin,password:admin',
+               port: 3000,
+               url: 'http://' + hostname + ':3000'
+              },
+              {
+               value: false,
+               service: 'Apache',
+               description: 'webserver',
+               port: 8000,
+               url: 'http://' + hostname + ':8000'
+              },
+              {
+               value: false,
+               service: 'PHPMyAdmin',
+               description: 'username:root,password:root',
+               port: 8001,
+               url: 'http://' + hostname + ':8001'
+              },
+              {
+               value: false,
+               service: 'Portainer',
+               description: 'Docker Manager UI',
+               port: 9000,
+               url: 'http://' + hostname + ':9000'
+              },
+              {
+               value: false,
+               service: 'Traefik',
+               description: 'Reverse Proxy',
+               port: 8080,
+               url: 'http://' + hostname + ':8080'
+              }
+              ]
+            }
+         },        
+        template: '#myapp-template'
+    });
+
+    new Vue({
+        el: '#myapp'
+
+    });
+</script>
+
 
 </body>
 </html>

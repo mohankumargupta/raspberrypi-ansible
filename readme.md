@@ -1,9 +1,11 @@
 # Start with a vanilla Raspbian image, end up with a turbocharged custom Raspbian image 
 
 ## How it works
-Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty file called ssh in the root
-of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless, see wpa_supplicant-sample.conf for an example), then setup a  Debian-based (Linux Mint, Ubuntu, Debian) computer with Ansible installed, then run the playbook in this 
-repo, and you end up with a more useable Raspbian install.
+* Boot Raspberry Pi with a fresh install of Raspbian (remember to put an empty file called ssh in the root
+of SD card to enable SSH, and optionally a wpa_supplicant.conf to automatically connect to wifi if running headless, see wpa_supplicant-sample.conf for an example)
+* Setup Ubuntu/Linux Mint with Ansible installed
+* git clone this repo
+* bash run.sh
 
 ## User configuration files
 **hosts**: Change IP address of Pi and optionally hostname
@@ -14,16 +16,15 @@ to install, nodered modules to install, enable camera.
 
 ## Features
 
-- Get updates
 - Change hostname and password for user called pi
-- Configure keyboard layout for US
+- Configure keyboard layout
 - Install an on-screen keyboard
-- Enables VNC (need to manually Sign in for VNC Cloud Connect), Serial
+- Configures raspi-config, including VNC
 - Install Arduino IDE, audacity, vlc, grafana
 - Updates NodeJS and NodeRed
 - Installs NodeRED modules
-- Installs LAMP(Apache, MySQL,PHP)
 - Installs ngrok to allow webserver access over the internet
+- Installs docker and starts docker containers (see docker-compose.yml)
 
 
 # Detailed Instructions
@@ -83,7 +84,5 @@ you can go to http://localhost or on another machine on the same network, go to 
 list of web-based services available on the Pi.
 
 # TODO
-- Install nginx as a reverse proxy to access http-based applications (NodeRED, apache, wordpress, grafana) over the internet with the help of ngrok
-- Install docker, some sample containers, and management-related tools 
 
 
