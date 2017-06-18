@@ -1,0 +1,31 @@
+---
+# This only downloads sample from github
+# Follow the instructions here https://github.com/alexa/alexa-avs-sample-app/wiki/Raspberry-Pi
+# You have to signup with an Amazon account
+# and run /home/pi/Desktop/alexa-avs-sample-app/automated_install.sh
+# . After that, this script makes it easier
+# to open the 3 terminal windows by making links on the Desktop.
+
+- name: Download Alexa AWS Sample from github 
+  hosts: raspberrypis
+  tasks:
+    - name: Download from github
+      git:
+        repo: 'https://github.com/alexa/alexa-avs-sample-app.git'
+        dest: /home/pi/Desktop/alexa-avs-sample-app
+
+    - name: make automated_install.sh executable
+      file:
+        path: /home/pi/Desktop/alexa-avs-sample-app/automated_install.sh
+        mode: 0755
+
+    - name: Copy 3 terminal window links for Alexa
+      copy:
+        src: "{{ item }}"
+        dest: /home/pi/Desktop
+        mode: 0755
+      with_fileglob:
+      - files/amazon-alexa/*
+
+
+

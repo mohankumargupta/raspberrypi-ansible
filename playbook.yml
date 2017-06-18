@@ -29,3 +29,15 @@
   tags:
     - docker
 
+- include: amazon-alexa.yml
+  tags:
+    - voice
+    - alexa
+
+- include: google-assistant.yml
+  tags:
+    - voice
+    - googleassistant
+
+
+

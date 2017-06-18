@@ -1,0 +1,23 @@
+---
+# This script is lazy, leaves it to user to run install-google-assistant.sh
+# and firstrun.sh, then from then on, you can run the google-assistant.sh
+# script from the Desktop
+
+
+- name: Download google assistant scripts
+  hosts: raspberrypis
+  tasks:
+    - name: Create google-assistant directory on Desktop
+      file:
+        path: /home/pi/Desktop/google-assistant
+        state: directory
+        mode: 0755
+    
+    - copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: 0755
+      with_items:
+        - {src: 'files/google-assistant/google-assistant.sh', dest: '/home/pi/Desktop'}
+        - {src: 'files/google-assistant/google-assistant/firstrun.sh', dest: '/home/pi/Desktop/google-assistant'}
+        - {src: 'files/google-assistant/google-assistant/install-google-assistant.sh', dest: '/home/pi/Desktop/google-assistant'}

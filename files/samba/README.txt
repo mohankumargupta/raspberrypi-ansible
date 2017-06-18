@@ -1,0 +1,1 @@
+SAMBA share available at /storage
