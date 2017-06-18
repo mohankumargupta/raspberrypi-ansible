@@ -78,6 +78,7 @@
         state: directory
         owner: pi
         group: pi
+        mode: 0777
         recurse: yes
 
     - name: Enable docker-compose systemd service on boot
