@@ -1,0 +1,24 @@
+---
+- name: Install dev stuff
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: update apt
+      apt:
+        update_cache: yes
+
+    - name: Install golang
+      apt:
+        name: golang
+
+    - name: Install tensorflow
+      pip:
+        executable: pip3
+        name: https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
+
+    - name: Install GTK 3 related things
+      apt:
+        name: glade
+
+
+

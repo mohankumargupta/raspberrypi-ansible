@@ -1,0 +1,11 @@
+[VSCode]
+
+Type=Application
+Version=1.0
+Name=VSCode
+Path=/home/pi/vscode/scripts
+Exec=code.sh
+Icon=/home/pi/vscode/resources/linux/code.png
+Terminal=false
+Categories=Programming
+
