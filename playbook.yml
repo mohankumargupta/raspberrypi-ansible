@@ -25,10 +25,6 @@
   tags:
     - python
 
-- include: docker.yml
-  tags:
-    - docker
-
 - include: amazon-alexa.yml
   tags:
     - voice
@@ -39,5 +35,6 @@
     - voice
     - googleassistant
 
-
-
+- include: docker.yml
+  tags:
+    - docker

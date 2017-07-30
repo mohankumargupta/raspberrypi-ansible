@@ -20,5 +20,11 @@
       apt:
         name: glade
 
+    - name: Install R programming language
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - r-base
+        - r-base-dev
 
 

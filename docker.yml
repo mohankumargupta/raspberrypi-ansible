@@ -47,31 +47,6 @@
       tags:
         - dockercompose
 
-    - name: Copy files
-      copy:
-        src: files
-        dest: /root
-      tags:
-        - dockercompose
-
-    - name: Copy docker-compose systemd service
-      copy:
-        src: files/docker/docker-compose.service
-        dest: /etc/systemd/system
-
-    - name: create /storage/public folder
-      file:
-        path: /storage/public
-        state: directory
-        mode: 0755
-
-    - name: move README.txt to /storage folder
-      copy:
-        src: /root/files/samba/README.txt
-        dest: /storage/public
-        remote_src: True
-        mode: 0777
-
     - name: Allow guest access to samba share
       file:
         path: /storage
@@ -80,6 +55,43 @@
         group: pi
         mode: 0777
         recurse: yes
+
+    - name: create /storage/public folder
+      file:
+        path: /storage/public
+        state: directory
+        owner: pi
+        group: pi
+        mode: 0777
+
+    - name: create /storage/docker directory
+      file:
+        path: /storage/docker
+        state: directory
+        owner: pi
+        group: pi
+        mode: 0777
+
+    - name: Copy files
+      copy:
+        src: files/
+        dest: /storage/docker
+        owner: nobody
+        group: nogroup
+      tags:
+        - dockercompose
+
+    - name: Copy docker-compose systemd service
+      copy:
+        src: files/docker/docker-compose.service
+        dest: /etc/systemd/system
+
+    - name: move README.txt to /storage folder
+      copy:
+        src: /storage/docker/samba/README.txt
+        dest: /storage/docker
+        remote_src: True
+        mode: 0777
 
     - name: Enable docker-compose systemd service on boot
       systemd:

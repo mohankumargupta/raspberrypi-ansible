@@ -22,14 +22,14 @@ services:
       - /dev/null:/etc/traefik/traefik.toml
 
   web:
-    image: armhf/php:5.6-apache
+    image: arm32v7/php:5.6-apache
     container_name: apache
     ports:
       - 8000:80
     depends_on:
       - db
     volumes:
-      - /root/files/webserver/html:/var/www/html
+      - /storage/docker/webserver/html:/var/www/html
     labels:
       - "traefik.backend=apache"
       - "traefik.frontend.rule=Path:/"
@@ -39,7 +39,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - /root/files/mysql:/etc/mysql/conf.d
+      - /storage/docker/mysql:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: helloworld
@@ -48,13 +48,12 @@ services:
     image: nidorpi/rpi-nginx-phpmyadmin
     container_name: phpmyadmin
     volumes:
-      - /root/files/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
+      - /storage/docker/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
     depends_on:
       - db
     ports:
       - 8001:80
     
-
   influxdb:
     image: hypriot/rpi-influxdb
     container_name: influxdb
@@ -82,7 +81,7 @@ services:
       - 445:445
     volumes:
       - /storage:/share
-    command: ["-s", "public:/share/public:rw:"]
+    command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
 
 
 

@@ -2,20 +2,8 @@
 - name: Upgrade nodejs and npm to latest
   hosts: raspberrypis
   tasks:
-    - name: Download nodejs and nodered update script
-      get_url:
-        url: https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered
-        dest: /tmp
-
     - name: Run nodejs and nodered upgrade script
-      shell: 'yes | bash /tmp/update-nodejs-and-nodered'
-      register: update-nodejs-and-nodered
-
-    - name: Debugging nodered and nodejs Install
-      debug:
-        var: update-nodejs-and-nodered
-        verbosity: 2
-
+      shell: 'yes | update-nodejs-and-nodered'
 
     - name: Install node-red modules
       npm: 
