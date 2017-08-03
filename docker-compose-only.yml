@@ -1,0 +1,8 @@
+---
+- name: Install docker containers using docker compose
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Install docker containers via docker compose
+      docker_service:
+        project_src: /storage/docker

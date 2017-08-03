@@ -22,7 +22,7 @@ services:
       - /dev/null:/etc/traefik/traefik.toml
 
   web:
-    image: arm32v7/php:5.6-apache
+    image: calangoclube/rpi-apache
     container_name: apache
     ports:
       - 8000:80
@@ -33,6 +33,7 @@ services:
     labels:
       - "traefik.backend=apache"
       - "traefik.frontend.rule=Path:/"
+      - "traefik.frontend.priority=1"
   db:
     image: hypriot/rpi-mysql
     container_name: mysql

@@ -51,26 +51,35 @@
       file:
         path: /storage
         state: directory
-        owner: pi
-        group: pi
+        owner: nobody
+        group: nogroup
         mode: 0777
-        recurse: yes
 
     - name: create /storage/public folder
       file:
         path: /storage/public
         state: directory
-        owner: pi
-        group: pi
+        owner: nobody
+        group: nogroup
         mode: 0777
 
     - name: create /storage/docker directory
       file:
         path: /storage/docker
         state: directory
-        owner: pi
-        group: pi
+        owner: nobody
+        group: nogroup
         mode: 0777
+
+    - name: Copy docker-compose to pi
+      copy:
+        src: docker-compose.yml
+        dest: /storage/docker
+        owner: nobody
+        group: nogroup
+        mode: 0777        
+      tags:
+        - dockercompose
 
     - name: Copy files
       copy:
@@ -78,20 +87,19 @@
         dest: /storage/docker
         owner: nobody
         group: nogroup
+        mode: 0777
       tags:
         - dockercompose
+
+    - name: phpmyadmin permission issue
+      file:
+        path: /storage/docker/phpmyadmin/config.inc.php
+        mode: 0774
 
     - name: Copy docker-compose systemd service
       copy:
         src: files/docker/docker-compose.service
         dest: /etc/systemd/system
-
-    - name: move README.txt to /storage folder
-      copy:
-        src: /storage/docker/samba/README.txt
-        dest: /storage/docker
-        remote_src: True
-        mode: 0777
 
     - name: Enable docker-compose systemd service on boot
       systemd:
@@ -100,7 +108,7 @@
 
     - name: Install docker containers via docker compose
       docker_service:
-        project_src: /root
+        project_src: /storage/docker
       tags:
         - dockercompose
 
