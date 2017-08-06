@@ -84,5 +84,6 @@ you can go to http://localhost or on another machine on the same network, go to 
 list of web-based services available on the Pi.
 
 # TODO
-
+- add docker container for MQTT (based on https://hub.docker.com/r/jonasheinisch/rpi-mqtt/)
+- possibly add docker container for Node-RED (based on https://hub.docker.com/r/nodered/node-red-docker/ tag rpi)
 
