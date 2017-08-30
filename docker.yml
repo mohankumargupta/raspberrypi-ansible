@@ -32,13 +32,24 @@
       tags:
         - dockercompose
 
-    - name: Install Docker
-      shell: "curl -sSL https://get.docker.com | bash"
-      register: output
+    - name: Add docker to apt repo
+      copy: 
+        src: files/apt-docker/docker.list
+        dest: /etc/apt/sources.list.d
 
-    - name: Debug output
-      debug:
-        msg: "{{output.stdout_lines}}"
+    - name: apt key for docker
+      shell: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+    - name: apt update
+      apt:
+        name: docker-engine
+        update_cache: yes        
+
+    - name: systemd for docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
 
     - name: Copy docker-compose to pi
       copy:
