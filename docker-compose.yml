@@ -10,17 +10,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  reverseproxy:
-    image: hypriot/rpi-traefik
-    container_name: traefik
-    command:  --web --docker --docker.domain=localhost --logLevel=DEBUG
-    ports:
-      - 8080:8080
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/etc/traefik/traefik.toml
-
   phpmyadmin:
     image: nidorpi/rpi-nginx-phpmyadmin
     container_name: phpmyadmin
@@ -30,10 +19,6 @@ services:
       - db
     ports:
       - 8001:80
-    labels:
-      - "traefik.backend=phpmyadmin"
-      - "traefik.frontend.rule=PrefixPathStrip:/docker/phpmyadmin"
-      - "traefik.frontend.priority=20"
 
   web:
     image: calangoclube/rpi-apache
@@ -44,10 +29,7 @@ services:
       - db
     volumes:
       - /storage/docker/webserver/html:/var/www/html
-    labels:
-      - "traefik.backend=apache"
-      - "traefik.frontend.rule=Path:/"
-      - "traefik.frontend.priority=10"
+
   db:
     image: hypriot/rpi-mysql
     container_name: mysql
@@ -76,7 +58,6 @@ services:
       - 3001:3000
     volumes:
       - /storage/docker/grafana:/etc/grafana
-
 
   samba:
     container_name: samba

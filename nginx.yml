@@ -10,22 +10,10 @@
 
     - name: Copy config file
       copy:
-        src: nginx.conf
-        dest: /etc/nginx/sites-available
+        src: files/nginx/default
+        dest: /etc/nginx/sites-available/default
 
-    - name: Move config file
-      command: mv /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-available/default
-      notify: reload nginx
-
-    - name: Copy nginx.html
-      copy:
-        src: nginx.html
-        dest: /usr/share/nginx/html
-
-  handlers:
-    - name: reload nginx
+    - name: Start and enable nginx
       systemd:
-        name: nginx
-        daemon-reload: yes
-
- 
+        enabled: yes
+        state: restarted

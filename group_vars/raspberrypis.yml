@@ -32,6 +32,7 @@ RASPBIAN_APT_INSTALL:
   - audacity
   - vlc
   - camorama
+  - nginx
 
 # install node-red modules
 NODERED_MODULES: 

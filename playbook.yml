@@ -35,6 +35,10 @@
     - voice
     - googleassistant
 
+- include: nginx.yml
+  tags:
+    - nginx
+
 - include: docker.yml
   tags:
     - docker

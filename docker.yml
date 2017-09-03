@@ -8,11 +8,19 @@
         name: "{{item}}"
       with_items:
         - python-pip
+          
+    - name: Install python docker
+      pip:
+        name: "{{item}}"
+        version: "1.9.0"
+        state: forcereinstall
+      with_items:
+        - docker-py
         - docker-compose
-    
+
     - name: Install pyyaml
       pip:
-        name: PyYAML
+        name: pyYAML
 
 - name: Docker containers
   hosts: raspberrypis
@@ -23,22 +31,13 @@
         name: lsb-release
         state: latest
 
-    - name: install python docker module
-      pip:
-        name: "{{item}}"
-      with_items:
-        - docker
-        - "docker-compose"
-      tags:
-        - dockercompose
-
     - name: Add docker to apt repo
       copy: 
         src: files/apt-docker/docker.list
         dest: /etc/apt/sources.list.d
 
     - name: apt key for docker
-      shell: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+      shell: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D >/dev/null 2>/dev/null
 
     - name: apt update
       apt:
@@ -117,10 +116,18 @@
         name: docker-compose
         enabled: yes
 
-    - name: Install docker containers via docker compose
-      docker_service:
-        project_src: /storage/docker
+    - name: Start docker containers via docker compose
+      shell: docker-compose up -d >/dev/null 2>/dev/null
+      args:
+        chdir: /storage/docker
       tags:
-        - dockercompose
+        - startdockercontainers 
+# - name: Install docker containers via docker compose
+#  docker_service:
+#    project_src: /storage/docker
+#  tags:
+#    - dockercompose
+#    - startdockercontainers
+
 
 

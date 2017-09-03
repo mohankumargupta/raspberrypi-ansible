@@ -1,4 +1,5 @@
-IPADDRESS=10.10.10.74
+IPADDRESS=$(shell grep -n ansible_host hosts|tail -1|cut -f2 -d'='|cut -f1 -d' ')
+
 
 .PHONY: all
 
