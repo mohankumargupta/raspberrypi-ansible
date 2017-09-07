@@ -26,6 +26,13 @@
   hosts: raspberrypis
   become: true
   tasks:
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
+        state: latest
+      tags:
+        - startdockercontainers
+
     - name: Prerequisite for installing docker on raspberrypis
       apt:
         name: lsb-release
@@ -117,7 +124,7 @@
         enabled: yes
 
     - name: Start docker containers via docker compose
-      shell: docker-compose up -d >/dev/null 2>/dev/null
+      shell: docker-compose up -d
       args:
         chdir: /storage/docker
       tags:
