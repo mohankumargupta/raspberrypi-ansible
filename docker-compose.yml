@@ -72,7 +72,14 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
 
-
+  jupyter:
+    container_name: jupyter
+    image: maxjiang/rpi-jupyter
+    network_mode: "host"
+    ports:
+      - 8888:8888
+    volumes:
+      - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
 
     
 

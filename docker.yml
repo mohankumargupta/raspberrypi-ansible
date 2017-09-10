@@ -128,7 +128,8 @@
       args:
         chdir: /storage/docker
       tags:
-        - startdockercontainers 
+        - startdockercontainers
+
 # - name: Install docker containers via docker compose
 #  docker_service:
 #    project_src: /storage/docker
