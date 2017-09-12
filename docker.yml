@@ -26,36 +26,18 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Install docker-compose
-      apt:
-        name: docker-compose
-        state: latest
-      tags:
-        - startdockercontainers
-
     - name: Prerequisite for installing docker on raspberrypis
       apt:
         name: lsb-release
         state: latest
 
-    - name: Add docker to apt repo
-      copy: 
-        src: files/apt-docker/docker.list
-        dest: /etc/apt/sources.list.d
+    - name: Install docker
+      shell: curl -fsSL https://get.docker.com | sh
 
-    - name: apt key for docker
-      shell: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D >/dev/null 2>/dev/null
-
-    - name: apt update
+    - name: Install docker-compose
       apt:
-        name: docker-engine
-        update_cache: yes        
-
-    - name: systemd for docker
-      systemd:
-        name: docker
-        state: started
-        enabled: yes
+        name: docker-compose
+        state: latest
 
     - name: Copy docker-compose to pi
       copy:
@@ -118,17 +100,11 @@
         src: files/docker/docker-compose.service
         dest: /etc/systemd/system
 
-    - name: Enable docker-compose systemd service on boot
+    - name: Enable docker-compose systemd service
       systemd:
         name: docker-compose
         enabled: yes
-
-    - name: Start docker containers via docker compose
-      shell: docker-compose up -d
-      args:
-        chdir: /storage/docker
-      tags:
-        - startdockercontainers
+        state: started
 
 # - name: Install docker containers via docker compose
 #  docker_service:
