@@ -26,25 +26,30 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Prerequisite for installing docker on raspberrypis
+    - name: Remove docker if it exists
       apt:
-        name: lsb-release
-        state: latest
+        name: "{{item}}"
+        state: absent
+      with_items:
+        - docker
+        - docker-engine
+        - docker.io
+      ignore_errors: yes     
 
     - name: Install docker
-      shell: curl -fsSL https://get.docker.com | sh
+      shell: "curl -fsSL get.docker.com|sh"
+    
+    - name: Add docker group to user pi
+      user:
+        name: pi
+        group: docker
+
+    - name: Check docker status
+      shell: /usr/bin/docker version
 
     - name: Install docker-compose
-      apt:
+      pip:
         name: docker-compose
-        state: latest
-
-    - name: Copy docker-compose to pi
-      copy:
-        src: docker-compose.yml
-        dest: /root
-      tags:
-        - dockercompose
 
     - name: Allow guest access to samba share
       file:
@@ -100,11 +105,17 @@
         src: files/docker/docker-compose.service
         dest: /etc/systemd/system
 
+    - name: Start docker containers
+      shell: "/usr/bin/docker-compose up -d"
+      args:
+        chdir: /storage/docker
+      tags:
+        - startdockercontainers
+
     - name: Enable docker-compose systemd service
       systemd:
         name: docker-compose
         enabled: yes
-        state: started
 
 # - name: Install docker containers via docker compose
 #  docker_service:

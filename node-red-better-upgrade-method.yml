@@ -2,15 +2,19 @@
 - name: Upgrade nodejs and npm to latest
   hosts: raspberrypis
   tasks:
-    - name: Run nodejs and nodered upgrade script
-      shell: 'yes | update-nodejs-and-nodered'
+    - name: Install node-red
+      become: yes
+      apt:
+        name: "{{item}}"
+      with_items:
+        - nodered
+        - npm
 
     - name: Install node-red modules
       npm: 
         name: "{{ item }}"
         path: /home/pi/.node-red
       with_items: "{{ NODERED_MODULES }}"
-
 
     - name: start and enable nodered service
       systemd:

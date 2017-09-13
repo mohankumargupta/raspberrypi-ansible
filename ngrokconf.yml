@@ -3,4 +3,14 @@ tunnels:
   apache:
     addr: 80
     proto: http
+  nodered:
+    addr: 1880
+    proto: http
+  grafana:
+    addr: 3001
+    proto: http
+  jupyter:
+    addr: 8888
+    proto: http
+
     

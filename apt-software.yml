@@ -6,6 +6,7 @@
     - name: Get latest Raspbian updates
       apt: 
         update_cache: yes
+        upgrade: yes
 
     - name: Make sure there are no broken packages
       command: apt-get -y -f install

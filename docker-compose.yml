@@ -74,12 +74,21 @@ services:
 
   jupyter:
     container_name: jupyter
-    image: maxjiang/rpi-jupyter
+    image: movalex/rpi-jupyter-julia
     network_mode: "host"
     ports:
       - 8888:8888
     volumes:
-      - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+      - /storage/docker/jupyter/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
+
+   nextcloud:
+     container_name: nextcloud
+     image: ownyourbits/nextcloudpi
+     network_mode: "host"
+     ports:
+      - 8002:80
+     volumes:
+       - /storage/docker/nextcloud/data:/data
 
     
 
