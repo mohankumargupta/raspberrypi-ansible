@@ -71,35 +71,26 @@ services:
     volumes:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
-
-  jupyter:
-    container_name: jupyter
-    image: movalex/rpi-jupyter-julia
+  
+  nextcloud:
+    container_name: nextcloud
+    image: ownyourbits/nextcloudpi
     network_mode: "host"
     ports:
-      - 8888:8888
-    volumes:
-      - /storage/docker/jupyter/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
-
-   nextcloud:
-     container_name: nextcloud
-     image: ownyourbits/nextcloudpi
-     network_mode: "host"
-     ports:
       - 8002:80
-     volumes:
-       - /storage/docker/nextcloud/data:/data
-
-    
+    volumes:
+      - /storage/docker/nextcloud/data:/data
 
 
-
-
-
-    
-
-
-
+  #jupyter:
+  #  container_name: jupyter
+  #  image: romilly/rpi-docker-tensorflow
+  #  ports:
+  #    - 8009:8009
+  #    - 6006:6006
+  #  volumes:
+  #    - /storage/docker/jupyter/notebooks:/notebooks/myNotebooks
+  #    - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
 
 
 

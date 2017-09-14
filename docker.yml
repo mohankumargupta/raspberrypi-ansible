@@ -26,19 +26,30 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Remove docker if it exists
+    - name: Copy apt sources.list for docker
+      copy:
+        src: files/apt-docker/docker.list
+        dest: /etc/apt/sources.list.d/docker.list
+
+    - name: Update apt
       apt:
         name: "{{item}}"
-        state: absent
-      with_items:
-        - docker
-        - docker-engine
-        - docker.io
-      ignore_errors: yes     
+        update_cache: yes
 
-    - name: Install docker
-      shell: "curl -fsSL get.docker.com|sh"
-    
+    - name: Copy docker install script
+      copy:
+        src: files/apt-docker/get-docker.sh
+        dest: /tmp/get-docker.sh
+        mode: 0777
+
+    - name: Run docker install script
+      script: /tmp/get-docker.sh
+
+    - name: remove docker install script
+      file:
+        path: /tmp/get-docker.sh
+        state: absent
+
     - name: Add docker group to user pi
       user:
         name: pi
@@ -106,7 +117,7 @@
         dest: /etc/systemd/system
 
     - name: Start docker containers
-      shell: "/usr/bin/docker-compose up -d"
+      shell: "echo $(which docker-compose) up -d"
       args:
         chdir: /storage/docker
       tags:
