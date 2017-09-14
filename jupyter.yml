@@ -15,12 +15,12 @@
         - libzmq3-dev
         - python3-zmq
 
-     - name: Install Jupyter
-       pip:
-         executable: pip3
-         name: jupyter
+    - name: Install Jupyter
+      pip:
+        executable: pip3
+        name: jupyter
 
-    - name:  Install IJulia
+    - name: Install IJulia
       shell: |
         julia -e 'Pkg.add("IJulia");'
 
@@ -28,6 +28,11 @@
       copy:
         src: files/systemd/jupyter.service
         dest: /etc/systemd/system
+
+    - name: create notebooks directory
+      file:
+        path: /storage/docker/jupyter/notebooks
+        mode: 0777
 
     - name: start and enable jupyter
       systemd:

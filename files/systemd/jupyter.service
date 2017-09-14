@@ -4,7 +4,7 @@ Description=Jupyter Notebook
 [Service]
 Type=simple
 PIDFile=/run/jupyter.pid
-ExecStart=jupyter notebook --allow-root --config=/storage/docker/jupyter/jupyter_notebook_config.py
+ExecStart=/usr/local/bin/jupyter notebook --allow-root --config=/storage/docker/jupyter/jupyter_notebook_config.py
 WorkingDirectory=/storage/docker/jupyter/notebooks
 
 [Install]

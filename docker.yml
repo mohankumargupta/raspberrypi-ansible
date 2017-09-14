@@ -26,14 +26,8 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Copy apt sources.list for docker
-      copy:
-        src: files/apt-docker/docker.list
-        dest: /etc/apt/sources.list.d/docker.list
-
     - name: Update apt
       apt:
-        name: "{{item}}"
         update_cache: yes
 
     - name: Copy docker install script
@@ -43,7 +37,7 @@
         mode: 0777
 
     - name: Run docker install script
-      script: /tmp/get-docker.sh
+      command: /tmp/get-docker.sh
 
     - name: remove docker install script
       file:
@@ -86,7 +80,7 @@
         group: nogroup
         mode: 0777
 
-    - name: Copy docker-compose to pi
+    - name: Copy docker-compose.yml to pi
       copy:
         src: docker-compose.yml
         dest: /storage/docker
@@ -127,6 +121,7 @@
       systemd:
         name: docker-compose
         enabled: yes
+        state: started
 
 # - name: Install docker containers via docker compose
 #  docker_service:

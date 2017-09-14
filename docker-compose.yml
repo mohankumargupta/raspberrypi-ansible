@@ -72,15 +72,6 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
-  nextcloud:
-    container_name: nextcloud
-    image: ownyourbits/nextcloudpi
-    network_mode: "host"
-    ports:
-      - 8002:80
-    volumes:
-      - /storage/docker/nextcloud/data:/data
-
 
   #jupyter:
   #  container_name: jupyter

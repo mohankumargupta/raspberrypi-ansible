@@ -14,8 +14,12 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Python install Hack
-      shell: "easy_install -U pip"    
+    - name: Upgrade pip
+      shell: "pip install --upgrade pip && pip install --upgrade setuptools"
+
+    - name: Upgrade pip3
+      shell: "pip3 install --upgrade pip && pip3 install --upgrade setuptools"
+
     - name: Install python2 modules via apt-get
       apt:
         name: "{{item}}"

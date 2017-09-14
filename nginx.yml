@@ -13,8 +13,13 @@
         src: files/nginx/default
         dest: /etc/nginx/sites-available/default
 
+    - name: Copy nginx.conf
+      copy:
+        src: files/nginx/nginx.conf
+        dest: /etc/nginx/nginx.conf
+
     - name: Start and enable nginx
       systemd:
         name: nginx
         enabled: yes
-        state: restarted
+        state: started
