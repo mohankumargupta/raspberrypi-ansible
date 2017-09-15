@@ -35,10 +35,10 @@
     - name: Run docker install script
       command: /tmp/get-docker.sh
 
-    - name: remove docker install script
-      file:
-        path: /tmp/get-docker.sh
-        state: absent
+    #- name: remove docker install script
+    #  file:
+    #    path: /tmp/get-docker.sh
+    #    state: absent
 
     - name: Add docker group to user pi
       user:
@@ -130,12 +130,6 @@
         enabled: yes
         state: started
 
-# - name: Install docker containers via docker compose
-#  docker_service:
-#    project_src: /storage/docker
-#  tags:
-#    - dockercompose
-#    - startdockercontainers
 
 
 
