@@ -26,10 +26,6 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Update apt
-      apt:
-        update_cache: yes
-
     - name: Copy docker install script
       copy:
         src: files/apt-docker/get-docker.sh
@@ -110,12 +106,23 @@
         src: files/docker/docker-compose.service
         dest: /etc/systemd/system
 
+    - name: Copy docker systemd service
+      copy:
+        src: files/docker/docker.service
+        dest: /etc/systemd/system    
+
     - name: Start docker containers
       shell: "echo $(which docker-compose) up -d"
       args:
         chdir: /storage/docker
       tags:
         - startdockercontainers
+
+    - name: Enable docker systemd service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
 
     - name: Enable docker-compose systemd service
       systemd:

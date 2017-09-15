@@ -40,6 +40,14 @@
         enabled: yes
         state: started
 
+    - name: Download tensorflow whl
+      get_url:
+        url: https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
+        dest: /tmp/tensorflow.whl
+
+    - name: Install tensorflow
+      shell: pip install /tmp/tensorflow.whl
+
 
 
 
