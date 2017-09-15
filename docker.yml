@@ -40,14 +40,6 @@
     #    path: /tmp/get-docker.sh
     #    state: absent
 
-    - name: Add docker group to user pi
-      user:
-        name: pi
-        group: docker
-
-    - name: Check docker status
-      shell: /usr/bin/docker version
-
     - name: Install docker-compose
       pip:
         name: docker-compose
@@ -111,24 +103,26 @@
         src: files/docker/docker.service
         dest: /etc/systemd/system    
 
-    - name: Start docker containers
-      shell: "echo $(which docker-compose) up -d"
-      args:
-        chdir: /storage/docker
-      tags:
-        - startdockercontainers
-
     - name: Enable docker systemd service
       systemd:
         name: docker
         enabled: yes
         state: started
 
+    - name: Check docker status
+      shell: /usr/bin/env docker version
+
+    - name: Start docker containers
+      shell: docker-compose up -d
+      args:
+        chdir: /storage/docker
+      tags:
+        - startdockercontainers
+
     - name: Enable docker-compose systemd service
       systemd:
         name: docker-compose
         enabled: yes
-        state: started
 
 
 
