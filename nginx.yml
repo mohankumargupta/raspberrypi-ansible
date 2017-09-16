@@ -4,14 +4,12 @@
   become: true
   tasks:
     - name: Install nginx
-      apt:
-        name: nginx
-        state: latest
+      shell: "apt-get -y install nginx" 
 
     - name: Copy config file
-      copy:
-        src: files/nginx/default
-        dest: /etc/nginx/sites-available/default
+      file:
+        path: /etc/nginx/sites-available/default
+        state: absent
 
     - name: Copy nginx.conf
       copy:
@@ -22,4 +20,4 @@
       systemd:
         name: nginx
         enabled: yes
-        state: started
+        state: restarted

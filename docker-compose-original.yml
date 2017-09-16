@@ -1,0 +1,88 @@
+version: '2'
+services:
+
+  portainer:
+    image: portainer/portainer:linux-arm
+    container_name: portainer
+    command: --no-auth
+    ports:
+      - 9000:9000 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  phpmyadmin:
+    image: nidorpi/rpi-nginx-phpmyadmin
+    container_name: phpmyadmin
+    volumes:
+      - /storage/docker/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
+    depends_on:
+      - db
+    ports:
+      - 8001:80
+
+  web:
+    image: calangoclube/rpi-apache
+    container_name: apache
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    volumes:
+      - /storage/docker/webserver/html:/var/www/html
+
+  db:
+    image: hypriot/rpi-mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - /storage/docker/mysql:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: helloworld
+    
+  influxdb:
+    image: hypriot/rpi-influxdb
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    environment:
+      ADMIN_USER: root
+      INFLUXDB_INIT_PWD: root
+      PRE_CREATE_DB: "db1;db2;db3"
+
+  grafana:
+    image: fg2it/grafana-armhf:v4.3.2
+    container_name: grafana
+    ports: 
+      - 3001:3000
+    volumes:
+      - /storage/docker/grafana:/etc/grafana
+
+  samba:
+    container_name: samba
+    image: dastrasmue/rpi-samba:v3
+    network_mode: "host"
+    ports: 
+      - 137:137/udp
+      - 138:138/udp
+      - 139:139
+      - 445:445
+    volumes:
+      - /storage:/share
+    command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
+  
+
+  #jupyter:
+  #  container_name: jupyter
+  #  image: romilly/rpi-docker-tensorflow
+  #  ports:
+  #    - 8009:8009
+  #    - 6006:6006
+  #  volumes:
+  #    - /storage/docker/jupyter/notebooks:/notebooks/myNotebooks
+  #    - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+
+
+
+  
