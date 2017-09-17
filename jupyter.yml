@@ -41,6 +41,10 @@
         enabled: yes
         state: started
 
+    - name: Install Ipython for Python 2
+      pip:
+        name: ipykernel
+
     - name: Install tensorflow
       shell: pip install https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 

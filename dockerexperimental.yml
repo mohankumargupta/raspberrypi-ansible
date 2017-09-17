@@ -51,12 +51,10 @@
       tags:
         - dockercompose
 
-    - name: Copy docker-related services
+    - name: Copy docker services
       copy:
-        src: "{{item}}"
-        dest: /etc/systemd/system 
-      with_fileglob:
-        - "files/docker/*.service"   
+        src: files/docker/docker.service
+        dest: /etc/systemd/system    
 
     - name: Enable docker systemd service
       systemd:
@@ -78,11 +76,12 @@
       tags:
         - startcontainers
 
-    - name: Start containers via docker-compose
-      shell: "docker-compose up -d"
-      args:
-        chdir: /storage/docker
-      tags:
-        - startcontainers
+    - name: run dockercomposescript
+      shell: bash /storage/docker/docker/dockercomposescript.sh
 
 
+  
+
+
+
+     

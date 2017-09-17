@@ -6,6 +6,14 @@
 # . After that, this script makes it easier
 # to open the 3 terminal windows by making links on the Desktop.
 
+# UPDATE: This is broken in Raspbian Stretch
+# to fix, try:
+# sudo apt-get install libvlc-dev
+# Go to alexa-avs-sample-app/samples/javaclient folder and edit the pom.xml file, change the value in tag alpn-boot.version for this value: 8.1.6.v20151105
+# https://github.com/alexa/alexa-avs-sample-app/issues/902
+# https://github.com/alexa/alexa-avs-sample-app/issues/937
+
+
 - name: Download Alexa AWS Sample from github 
   hosts: raspberrypis
   tasks:

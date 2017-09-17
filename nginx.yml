@@ -4,9 +4,10 @@
   become: true
   tasks:
     - name: Install nginx
-      shell: "apt-get -y install nginx" 
+      apt:
+        name: nginx 
 
-    - name: Copy config file
+    - name: Remove nginx default file
       file:
         path: /etc/nginx/sites-available/default
         state: absent
