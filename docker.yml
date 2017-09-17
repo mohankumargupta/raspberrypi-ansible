@@ -95,7 +95,7 @@
 
     - name: Copy docker-compose systemd service
       copy:
-        src: files/docker/docker-compose.service
+        src: files/systemd/docker-compose.service
         dest: /etc/systemd/system
 
     - name: Copy docker systemd service
@@ -118,6 +118,8 @@
         chdir: /storage/docker
       tags:
         - startdockercontainers
+
+
 
     - name: Enable docker-compose systemd service
       systemd:

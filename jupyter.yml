@@ -49,6 +49,12 @@
       shell: pip install https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 
 
+    - name: Install Ipython2 kernel
+      shell: ipython kernel install --user
+
+    - name: Install Ipython3 kernel
+      shell: ipython3 kernel install --user
+
 
 
 
