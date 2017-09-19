@@ -70,20 +70,6 @@
                description: 'NodeRED',
                port: 1880,
                url: 'http://' + hostname + ':1880'
-              }, 
-              {
-                value: false,
-                service: 'InfluxDB',
-                description: 'databases: db1,db2,db3' ,
-                port: 8086,
-                url: 'http://' + hostname + ':8086' 
-              },
-              {
-               value: false,
-               service: 'Grafana',
-               description: 'username:admin,password:admin; influxdburl: http://influxdb:8086, proxy',
-               port: 3001,
-               url: 'http://' + hostname + ':3001'
               },
               {
                value: false,
@@ -91,20 +77,6 @@
                description: 'webserver',
                port: 8000,
                url: 'http://' + hostname + ':8000'
-              },
-              {
-                value: false,
-                service: 'MySQL',
-                description: 'database',
-                port: 3306,
-                url: 'http://' + hostname + ':3306'
-              },
-              {
-               value: false,
-               service: 'PHPMyAdmin',
-               description: 'username:root,password:root',
-               port: 8001,
-               url: 'http://' + hostname + ':8001'
               },
               {
                value: false,
@@ -116,7 +88,7 @@
               {
                value: false,
                service: 'Jupyter',
-               description: 'password:password',
+               description: 'Jupyter Notebook',
                port: 8888,
                url: 'http://' + hostname + ':8888/jupyter'                
               }

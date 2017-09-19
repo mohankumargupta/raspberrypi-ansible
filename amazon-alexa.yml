@@ -35,5 +35,14 @@
       with_fileglob:
       - files/amazon-alexa/*
 
+    - name: Install required package
+      apt:
+        name: "{{item}}"
+      with_items:
+        - "libvlc-dev"
+        - cmake
+
+
+
 
 
