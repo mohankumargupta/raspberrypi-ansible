@@ -2,13 +2,28 @@
 - name: Upgrade nodejs and npm to latest
   hosts: raspberrypis
   tasks:
-    - name: Install node-red
+    #- name: Install node-red
+    #  become: yes
+    #  apt:
+    #    name: "{{item}}"
+    #  with_items:
+    #    - nodered
+    #    - npm
+
+    - name: Remove lists for stretch
+      shell: "rm -rf /var/lib/apt/lists/*"
       become: yes
-      apt:
-        name: "{{item}}"
-      with_items:
-        - nodered
-        - npm
+
+    - name: Upgrade nodejs and nodered
+      shell: "yes | update-nodejs-and-nodered"
+      become: yes
+
+    - name: start and enable nodered service
+      systemd:
+        name: nodered
+        enabled: yes
+        state: started
+      become: yes    
 
     - name: Install node-red modules
       npm: 
@@ -16,9 +31,4 @@
         path: /home/pi/.node-red
       with_items: "{{ NODERED_MODULES }}"
 
-    - name: start and enable nodered service
-      systemd:
-        name: nodered
-        enabled: yes
-        state: started
-      become: yes
+

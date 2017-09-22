@@ -23,6 +23,7 @@ will create your custom Raspbian image. Need to edit 2 user config files.
 - Installs NodeRED modules
 - Installs ngrok to allow webserver access over the internet
 - Installs docker and starts docker containers (see docker-compose.yml)
+- Install and configure SAMBA
 
 
 # Detailed Instructions

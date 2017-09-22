@@ -8,9 +8,9 @@
 
 # UPDATE: This is broken in Raspbian Stretch
 # to fix, try:
+# https://github.com/alexa/alexa-avs-sample-app/issues/902
 # sudo apt-get install libvlc-dev
 # Go to alexa-avs-sample-app/samples/javaclient folder and edit the pom.xml file, change the value in tag alpn-boot.version for this value: 8.1.6.v20151105
-# https://github.com/alexa/alexa-avs-sample-app/issues/902
 # https://github.com/alexa/alexa-avs-sample-app/issues/937
 
 
@@ -21,6 +21,7 @@
       git:
         repo: 'https://github.com/alexa/alexa-avs-sample-app.git'
         dest: /home/pi/Desktop/alexa-avs-sample-app
+        force: yes
 
     - name: make automated_install.sh executable
       file:
@@ -41,6 +42,7 @@
       with_items:
         - "libvlc-dev"
         - cmake
+      become: yes
 
 
 
