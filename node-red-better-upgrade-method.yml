@@ -10,13 +10,18 @@
     #    - nodered
     #    - npm
 
-    - name: Remove lists for stretch
-      shell: "rm -rf /var/lib/apt/lists/*"
-      become: yes
+    #- name: Remove lists for stretch
+    #  shell: "rm -rf /var/lib/apt/lists/*"
+    #  become: yes
+
+    - name: Download update-nodejs-and-nodered
+      get_url:
+        url: https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered
+        dest: /tmp/update-nodejs-and-nodered
+        mode: 0777
 
     - name: Upgrade nodejs and nodered
-      shell: "yes | update-nodejs-and-nodered"
-      become: yes
+      shell: "yes|/tmp/update-nodejs-and-nodered"
 
     - name: start and enable nodered service
       systemd:

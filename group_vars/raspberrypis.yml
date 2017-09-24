@@ -28,7 +28,6 @@ RASPICONFIG_ENABLE_RGPIO: false
 
 # apt-get install software packages
 RASPBIAN_APT_INSTALL:
-  - arduino
   - audacity
   - vlc
   - camorama

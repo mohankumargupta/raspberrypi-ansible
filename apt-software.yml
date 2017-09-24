@@ -3,6 +3,10 @@
   hosts: raspberrypis
   become: true
   tasks:
+
+    - name: hack
+      shell: "apt-get clean"
+
     - name: Get latest Raspbian updates
       apt: 
         update_cache: yes

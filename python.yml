@@ -14,6 +14,15 @@
   hosts: raspberrypis
   become: true
   tasks:
+    - name:
+      file:
+        path: "/var/lib/dpkg/info/nodejs.list"
+        state: absent
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
     - name: Upgrade pip
       shell: "pip install --upgrade pip && pip install --upgrade setuptools"
 
