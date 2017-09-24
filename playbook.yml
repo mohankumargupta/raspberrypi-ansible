@@ -47,4 +47,8 @@
   tags:
     - jupyter
 
+- include: ngrok.yml
+  tags:
+    - ngrok
+
 

@@ -1,4 +1,5 @@
 web_addr: 0.0.0.0:4040
+authtoken: 3r8b5gGT1s5y6ETDGBb53_2wTYsBxYeyTHfnrRpxDcG
 tunnels:
   apache:
     addr: 80
@@ -6,11 +7,7 @@ tunnels:
   nodered:
     addr: 1880
     proto: http
-  grafana:
-    addr: 3001
-    proto: http
   jupyter:
     addr: 8888
     proto: http
 
-    

@@ -3,11 +3,26 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Download and install nkgrok 
+    - name: Download and install ngrok 
       unarchive:
         src: https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
         remote_src: true
         dest: /usr/local/bin
+
+    - name: Copy ngrok systemd file to right dir
+      copy:
+        remote_src: true
+        src: /storage/docker/ngrok/ngrok.service
+        dest: /etc/systemd/system
+
+    - name: start and enable ngrok service
+      systemd:
+        name: ngrok
+        enabled: yes
+        state: started
+
+
+
 
 
 
