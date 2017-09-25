@@ -39,6 +39,10 @@
   tags:
     - nginx
 
+- include: sambafiles.yml
+  tags:
+    - samba
+
 - include: dockerexperimental.yml
   tags:
     - docker

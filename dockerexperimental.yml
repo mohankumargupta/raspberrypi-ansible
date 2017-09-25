@@ -17,40 +17,6 @@
     #    path: /tmp/get-docker.sh
     #    state: absent
 
-    - name: Allow guest access to samba share
-      file:
-        path: /storage
-        state: directory
-        owner: nobody
-        group: nogroup
-        mode: 0777
-
-    - name: create /storage/public folder
-      file:
-        path: /storage/public
-        state: directory
-        owner: nobody
-        group: nogroup
-        mode: 0777
-
-    - name: create /storage/docker directory
-      file:
-        path: /storage/docker
-        state: directory
-        owner: nobody
-        group: nogroup
-        mode: 0777
-
-    - name: Copy files
-      copy:
-        src: files/
-        dest: /storage/docker
-        owner: nobody
-        group: nogroup
-        mode: 0777
-      tags:
-        - dockercompose
-
     - name: Copy docker services
       copy:
         src: files/docker/docker.service
