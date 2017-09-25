@@ -15,15 +15,20 @@
         src: /storage/docker/ngrok/ngrok.service
         dest: /etc/systemd/system
 
+    - name: Make file executable 
+      file:
+        path: /storage/docker/ngrok/ngrok.py
+        mode: 0777
+
+    - name: Install python-twitter
+      pip:
+        name: python-twitter
+
     - name: start and enable ngrok service
       systemd:
         name: ngrok
         enabled: yes
         state: started
-
-
-
-
 
 
 
