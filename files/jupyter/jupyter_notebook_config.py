@@ -1,7 +1,7 @@
 c = get_config()
 c.NotebookApp.open_browser = False
 c.NotebookApp.ip = '*'
-c.NotebookApp.base_url = '/jupyter'
+#c.NotebookApp.base_url = '/jupyter'
 c.NotebookApp.trust_xheaders = True
-c.NotebookApp.tornado_settings = {'static_url_prefix': '/jupyter/static/'}
+#c.NotebookApp.tornado_settings = {'static_url_prefix': '/jupyter/static/'}
 c.NotebookApp.token = u''
