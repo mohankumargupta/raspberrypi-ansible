@@ -3,6 +3,8 @@
   hosts: raspberrypis
   become: true
   tasks:
+    - name: Install docker
+      shell: "curl -sSL https://get.docker.com/ | sudo bash"
 
     - name: Install docker-compose
       pip:
@@ -15,39 +17,7 @@
         owner: nobody
         group: nogroup
         mode: 0777        
-      tags:
-        - dockercompose
 
-    - name: Copy files
-      copy:
-        src: files/
-        dest: /storage/docker
-        owner: nobody
-        group: nogroup
-        mode: 0777
-      tags:
-        - dockercompose
-
-    - name: phpmyadmin permission issue
-      file:
-        path: /storage/docker/phpmyadmin/config.inc.php
-        mode: 0774
-
-    - name: Copy docker-compose systemd service
-      copy:
-        src: files/systemd/docker-compose.service
-        dest: /etc/systemd/system
-
-    - name: Copy docker systemd service
-      copy:
-        src: files/docker/docker.service
-        dest: /etc/systemd/system    
-
-    - name: Enable docker systemd service
-      systemd:
-        name: docker
-        enabled: yes
-        state: started
 
     - name: Check docker status
       shell: /usr/bin/env docker version
@@ -56,15 +26,12 @@
       shell: docker-compose up -d
       args:
         chdir: /storage/docker
-      tags:
-        - startdockercontainers
 
 
-
-    - name: Enable docker-compose systemd service
-      systemd:
-        name: docker-compose
-        enabled: yes
+    #- name: Enable docker-compose systemd service
+    #  systemd:
+    #    name: docker-compose
+    #    enabled: yes
 
 
 

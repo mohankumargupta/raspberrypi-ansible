@@ -28,7 +28,7 @@
       systemd:
         name: ngrok
         enabled: yes
-        state: started
+        state: restarted
 
 
 

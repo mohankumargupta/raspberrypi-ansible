@@ -53,6 +53,7 @@ PYTHON2_APT_MODULES:
 PYTHON2_PIP_MODULES:
   - pip
   - setuptools
+  - matplotlib
 
 # Python 3 modules available via apt-get
 PYTHON3_APT_MODULES:

@@ -14,6 +14,10 @@
         - julia
         - libzmq3-dev
         - python3-zmq
+        - "r-base"
+        - "r-base-core"
+        - "r-base-dev"
+        - "libssl-dev"
 
     - name: Install Jupyter
       pip:
@@ -54,6 +58,16 @@
 
     - name: Install Ipython3 kernel
       shell: ipython3 kernel install --user
+
+    - name: Install bash_jupyter
+      pip:
+        name: bash_kernel
+
+    - name: Install bash_kernel kernelspec
+      shell: python -m bash_kernel.install 
+
+
+
 
 
 
