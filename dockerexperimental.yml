@@ -3,30 +3,25 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Copy docker install script
-      copy:
-        src: files/apt-docker/get-docker.sh
-        dest: /tmp/get-docker.sh
-        mode: 0777
+    #- name: Copy docker install script
+    #  copy:
+    #    src: files/apt-docker/get-docker.sh
+    #    dest: /tmp/get-docker.sh
+    #    mode: 0777
 
-    - name: Run docker install script
-      command: /tmp/get-docker.sh
+    #- name: Run docker install script
+    #  command: /tmp/get-docker.sh
 
     #- name: remove docker install script
     #  file:
     #    path: /tmp/get-docker.sh
     #    state: absent
 
-    - name: Copy docker services
-      copy:
-        src: files/docker/docker.service
-        dest: /etc/systemd/system    
 
-    - name: Enable docker systemd service
-      systemd:
-        name: docker
-        enabled: yes
-        state: started
+    # Hack required (on boot, must reinstall docker 
+    # by doing dpkg -i docker-ce_17.09.0~ce-0~raspbian_armhf.deb)
+    - name: Install docker
+      shell: "wget https://download.docker.com/linux/raspbian/dists/stretch/pool/edge/armhf/docker-ce_17.09.0~ce-0~raspbian_armhf.deb && dpkg -i docker-ce_17.09.0~ce-0~raspbian_armhf.deb"  
 
     - name: Check docker status
       shell: /usr/bin/env docker version
@@ -34,16 +29,25 @@
     - name: Install docker-compose
       pip: 
         name: docker-compose
+      tags:
+        - dockercompose
 
     - name: copy docker-compose.yml to pi
       copy:
         src: docker-compose.yml
         dest: /storage/docker
       tags:
-        - startcontainers
+        - dockercompose
+    
+    - name: Start docker containers
+      shell: "docker-compose up -d"
+      args:
+        chdir: /storage/docker
+      tags:
+        - dockercompose
 
-    - name: run dockercomposescript
-      shell: bash /storage/docker/docker/dockercomposescript.sh
+    #- name: run dockercomposescript
+    #  shell: bash /storage/docker/docker/dockercomposescript.sh
 
   
 

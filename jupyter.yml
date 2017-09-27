@@ -3,10 +3,6 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Update apt
-      apt:
-        update_cache: yes
-
     - name: Install Julia
       apt: 
         name: "{{item}}"
