@@ -43,6 +43,10 @@
   tags:
     - samba
 
+- include: ngrok.yml
+  tags:
+    - ngrok
+
 - include: dockerexperimental.yml
   tags:
     - docker
@@ -50,9 +54,5 @@
 - include: jupyter.yml
   tags:
     - jupyter
-
-- include: ngrok.yml
-  tags:
-    - ngrok
 
 
