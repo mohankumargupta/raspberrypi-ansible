@@ -21,7 +21,7 @@
     # Hack required (on boot, must reinstall docker 
     # by doing dpkg -i docker-ce_17.09.0~ce-0~raspbian_armhf.deb)
     - name: Install docker
-      shell: "wget https://download.docker.com/linux/raspbian/dists/stretch/pool/edge/armhf/docker-ce_17.09.0~ce-0~raspbian_armhf.deb && dpkg -i docker-ce_17.09.0~ce-0~raspbian_armhf.deb"  
+      shell: "wget -O /storage/docker/docker-ce_17.09.0~ce-0~raspbian_armhf.deb https://download.docker.com/linux/raspbian/dists/stretch/pool/edge/armhf/docker-ce_17.09.0~ce-0~raspbian_armhf.deb && cd /storage/docker  && dpkg -i docker-ce_17.09.0~ce-0~raspbian_armhf.deb"  
 
     - name: Check docker status
       shell: /usr/bin/env docker version
