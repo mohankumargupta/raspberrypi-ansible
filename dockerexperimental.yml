@@ -46,6 +46,35 @@
       tags:
         - dockercompose
 
+    - name: Copy docker systemd files
+      copy:
+        remote_src: yes
+        src: "{{item}}"
+        dest: /etc/systemd/system
+      with_items:
+        - /storage/docker/docker/dockerhack.service
+        - /storage/docker/docker/dockercompose.service
+      tags:
+        - dockercomposeservice
+      
+    - name: Docker Hack systemd
+      systemd:
+        name: dockerhack
+        enabled: yes
+      tags:
+        - dockercomposeservice
+
+    - name: Docker compose systemd
+      systemd:
+        name: dockercompose
+        enabled: yes
+      tags:
+        - dockercomposeservice
+
+
+
+
+
     #- name: run dockercomposescript
     #  shell: bash /storage/docker/docker/dockercomposescript.sh
 

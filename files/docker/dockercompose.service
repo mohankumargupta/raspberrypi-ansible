@@ -1,12 +1,12 @@
 [Unit]
 Description=dockercompose
-Requires=docker.service
-After=docker.service
+Requires=rc-local.service
+After=rc-local.service
 
 [Service]
 WorkingDirectory=/storage/docker
-ExecStart=/usr/bin/docker-compose down && /usr/bin/docker-compose up -d
-ExecStop=/usr/bin/docker-compose down
+ExecStartPre=/bin/sleep 60
+ExecStart=/usr/local/bin/docker-compose up -d
 
 [Install]
 WantedBy=multi-user.target
