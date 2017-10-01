@@ -30,6 +30,7 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
+  
 
   #jupyter:
   #  container_name: jupyter
