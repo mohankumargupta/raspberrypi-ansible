@@ -1,0 +1,14 @@
+---
+- name: Install python packages with pip
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Install with pip
+      shell: pip install -r requirements.txt
+      args:
+        chdir: /storage/docker/pip
+      retries: 3
+      delay: 5
+      register: result
+      until: result.rc == 0
+

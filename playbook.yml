@@ -43,6 +43,10 @@
   tags:
     - samba
 
+- include: pip.yml
+  tags:
+    - pip
+
 - include: dockerexperimental.yml
   tags:
     - docker

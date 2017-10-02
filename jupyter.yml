@@ -19,19 +19,22 @@
         - "python-pandas"
         - "python-matplotlib"
         - "ttf-bitstream-vera"
+        - "python-ipykernel"
+        - "python3-ipykernel"
       retries: 2
       register: result
       until: result|succeeded
       ignore_errors: yes
 
-    - name: Install Jupyter on Python 2
-      pip:
-        name: jupyter
+    #- name: Install Jupyter on Python 2
+    #  pip:
+    #    name: jupyter
 
     - name: Install Jupyter on Python 3
-      pip:
-        executable: pip3
-        name: jupyter
+      shell: "pip3 install --upgrade jupyter"
+      retries: 2
+      register: result
+      until: result|succeeded     
 
     - name: remove julia
       apt:
@@ -67,23 +70,23 @@
         enabled: yes
         state: started
 
-    - name: Install Ipython for Python 2
-      apt:
-        name: python-ipykernel
-      retries: 2
-      register: result
-      until: result|succeeded
-      ignore_errors: yes
+    #- name: Install Ipython for Python 2
+    #  pip:
+    #    name: ipykernel
+    #  retries: 2
+    #  register: result
+    #  until: result|succeeded
+    #  ignore_errors: yes
 
     - name: Install tensorflow
       shell: pip install https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 
 
     - name: Install Ipython2 kernel
-      shell: ipython kernel install --user
+      shell: python2 -m ipykernel install --user
 
     - name: Install Ipython3 kernel
-      shell: ipython3 kernel install --user
+      shell: python3 -m ipykernel install --user
 
     - name: Install bash_jupyter
       pip:

@@ -26,18 +26,13 @@
     - name: Check docker status
       shell: /usr/bin/env docker version
 
-    - name: Install docker-compose
-      pip: 
-        name: docker-compose
-      tags:
-        - dockercompose
-
     - name: copy docker-compose.yml to pi
       copy:
         src: docker-compose.yml
         dest: /storage/docker
       tags:
         - dockercompose
+
     
     - name: Start docker containers
       shell: "docker-compose up -d"
@@ -45,6 +40,10 @@
         chdir: /storage/docker
       tags:
         - dockercompose
+      retries: 3
+      delay: 5
+      register: result
+      until: result.rc == 0
 
     - name: Copy docker systemd files
       copy:

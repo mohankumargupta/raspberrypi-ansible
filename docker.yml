@@ -6,10 +6,6 @@
     - name: Install docker
       shell: "curl -sSL https://get.docker.com/ | sudo bash"
 
-    - name: Install docker-compose
-      pip:
-        name: docker-compose
-
     - name: Copy docker-compose.yml to pi
       copy:
         src: docker-compose.yml
@@ -26,6 +22,11 @@
       shell: docker-compose up -d
       args:
         chdir: /storage/docker
+      retries: 3
+      delay: 3
+      register: result
+      until: result.rc == 0
+
 
 
     #- name: Enable docker-compose systemd service
