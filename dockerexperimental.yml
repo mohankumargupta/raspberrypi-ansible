@@ -33,17 +33,20 @@
       tags:
         - dockercompose
 
-    
-    - name: Start docker containers
-      shell: "docker-compose up -d"
-      args:
-        chdir: /storage/docker
-      tags:
-        - dockercompose
-      retries: 3
-      delay: 5
-      register: result
-      until: result.rc == 0
+    - name: Install docker containers
+      docker_service:
+        project_src: /storage/docker
+
+    #- name: Start docker containers
+    #  shell: "docker-compose up -d"
+    #  args:
+    #    chdir: /storage/docker
+    #  tags:
+    #    - dockercompose
+    #  retries: 3
+    #  delay: 5
+    #  register: result
+    #  until: result.rc == 0
 
     - name: Copy docker systemd files
       copy:

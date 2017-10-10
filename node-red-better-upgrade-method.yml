@@ -30,6 +30,13 @@
         state: started
       become: yes    
 
+    #- name: Install node-red modules
+    #  shell: npm install {{ item }}
+    #  args:
+    #    chdir: /home/pi/.node-red
+    #  tags:
+    #    - noderedmodules
+    #  with_items: "{{ NODERED_MODULES }}"
     - name: Install node-red modules
       npm: 
         name: "{{ item }}"

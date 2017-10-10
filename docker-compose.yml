@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: arm32v7/php:apache
+    image: tmb28054/rpi-apache-php
     container_name: apache
     ports:
       - 8000:80
@@ -30,7 +30,11 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
-  
+  nodered:
+    container_name: nodered
+    image: nodered/node-red-docker:rpi
+    ports:
+      - 1881:1880
 
   #jupyter:
   #  container_name: jupyter

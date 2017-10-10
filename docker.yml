@@ -18,16 +18,36 @@
     - name: Check docker status
       shell: /usr/bin/env docker version
 
-    - name: Start docker containers
-      shell: docker-compose up -d
+
+    #- name: Start docker containers
+    #  docker_service:
+    #    project_src: /storage/docker
+    #    state: present
+    #    pull: yes
+    #  retries: 3
+    #  delay: 3
+    #  register: result
+    #  until: result.rc|succeeded
+    #  tags:
+    #    - startcontainers
+
+    - name: Pull docker images
+      shell: docker-compose pull
       args:
-        chdir: /storage/docker
+        chdir: /storage/docker    
       retries: 3
       delay: 3
       register: result
       until: result.rc == 0
+      tags:
+        - startcontainers
 
-
+    - name: Start docker containers
+      shell: docker-compose up -d
+      args:
+        chdir: /storage/docker
+      tags:
+        - startcontainers
 
     #- name: Enable docker-compose systemd service
     #  systemd:

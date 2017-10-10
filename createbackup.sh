@@ -9,4 +9,6 @@
 #sfdisk /dev/mmcblk0 < pi_partitions
 #tar xvJf turboraspbian.img
 
+
+
 dd if=/dev/mmcblk0 bs=4k | xz -zf - | ssh user@host "cat > turboraspbian.img.xz"   
