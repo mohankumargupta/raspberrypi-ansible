@@ -31,10 +31,10 @@
     #  tags:
     #    - startcontainers
 
-    - name: Pull docker images
-      shell: docker-compose pull
+    - name: Start docker containers
+      shell: bash /storage/docker/docker/dockercomposescript.sh
       args:
-        chdir: /storage/docker    
+        chdir: /storage/docker
       retries: 3
       delay: 3
       register: result
@@ -42,12 +42,6 @@
       tags:
         - startcontainers
 
-    - name: Start docker containers
-      shell: docker-compose up -d
-      args:
-        chdir: /storage/docker
-      tags:
-        - startcontainers
 
     #- name: Enable docker-compose systemd service
     #  systemd:

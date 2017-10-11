@@ -34,6 +34,12 @@
         owner: nobody
         group: nogroup
         mode: 0777
+    
+    - name: Permissions for nodered docker image
+      shell: chmod -R 777 /storage/docker/nodered
+
+
+
   
 
 
