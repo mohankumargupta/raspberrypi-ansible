@@ -4,13 +4,17 @@ tunnels:
   apache:
     addr: 80
     proto: http
+    bind_tls: false
   nodered:
     addr: 1880
     proto: http
+    bind_tls: false
   jupyter:
     addr: 8888
     proto: http
+    bind_tls: false
   nodereddocker:
     addr: 1881
     proto: http
+    bind_tls: false
 
