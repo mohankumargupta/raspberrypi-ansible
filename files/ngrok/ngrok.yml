@@ -10,4 +10,7 @@ tunnels:
   jupyter:
     addr: 8888
     proto: http
+  nodereddocker:
+    addr: 1881
+    proto: http
 

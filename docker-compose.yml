@@ -35,6 +35,8 @@ services:
     image: nodered/node-red-docker:rpi
     ports:
       - 1881:1880
+    volumes:
+      - /storage/docker/nodered:/data
 
   #jupyter:
   #  container_name: jupyter

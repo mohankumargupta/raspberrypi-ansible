@@ -3,8 +3,8 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Install docker
-      shell: "curl -sSL https://get.docker.com/ | sudo bash"
+    #- name: Install docker
+    #  shell: "curl -sSL https://get.docker.com/ | sudo bash"
 
     - name: Copy docker-compose.yml to pi
       copy:
@@ -14,9 +14,20 @@
         group: nogroup
         mode: 0777        
 
+    - name: Download docker deb
+      shell: wget --no-check-certificate -O /storage/docker/docker/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
+      tags:
+        - hack
+
+    - name: Install docker
+      shell: dpkg -i docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
+      args:
+        chdir: /storage/docker/docker
 
     - name: Check docker status
       shell: /usr/bin/env docker version
+
+
 
 
     #- name: Start docker containers
@@ -42,12 +53,19 @@
       tags:
         - startcontainers
 
+    - name: Copy docker systemd files
+      copy:
+        remote_src: yes
+        src: /storage/docker/docker/dockerhack.service
+        dest: /etc/systemd/system
+      tags:
+        - dockercomposeservice
 
-    #- name: Enable docker-compose systemd service
-    #  systemd:
-    #    name: docker-compose
-    #    enabled: yes
-
-
+    - name: Enable docker-compose systemd service
+      systemd:
+        name: dockerhack
+        enabled: yes
+      tags:
+        - hack
 
 

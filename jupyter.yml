@@ -55,7 +55,8 @@
 
     - name: Copy systemd for jupyter-notebook
       copy:
-        src: files/systemd/jupyter.service
+        remote_src: true
+        src: /storage/docker/systemd/jupyter.service
         dest: /etc/systemd/system
 
     - name: create notebooks directory

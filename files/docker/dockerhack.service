@@ -5,7 +5,7 @@ Wants=docker.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/dpkg -i /storage/docker/docker-ce_17.09.0~ce-0~raspbian_armhf.deb
+ExecStart=/usr/bin/env bash /storage/docker/docker/dockerhack.sh
 ExecStartPost=/bin/echo "All Done"
 TimeoutStartSec=infinity
 
