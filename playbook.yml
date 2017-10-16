@@ -17,9 +17,9 @@
   tags:
     - keyboard
 
-- include: node-red-better-upgrade-method.yml
-  tags:
-    - nodered
+#- include: node-red-better-upgrade-method.yml
+#  tags:
+#    - nodered
 
 - include: python.yml
   tags:
