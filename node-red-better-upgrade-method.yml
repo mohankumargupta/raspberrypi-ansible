@@ -23,12 +23,7 @@
     - name: Upgrade nodejs and nodered
       shell: "yes|/tmp/update-nodejs-and-nodered"
 
-    - name: start and enable nodered service
-      systemd:
-        name: nodered
-        enabled: yes
-        state: started
-      become: yes    
+   
 
     #- name: Install node-red modules
     #  shell: npm install {{ item }}
@@ -37,10 +32,36 @@
     #  tags:
     #    - noderedmodules
     #  with_items: "{{ NODERED_MODULES }}"
+
+    - name: Upgrade nodejs
+      shell: "curl -sL https://deb.nodesource.com/setup_6.x | bash -"
+      become: true
+
+    - name: Remove old nodered
+      shell: "apt-get purge -y --remove nodejs"
+      become: true
+
+    - name: apt clean
+      shell: "apt-get clean"
+      become: true
+
+    - name: apt update
+      shell: "apt-get update"
+      become: true
+
+    - name: Install nodered
+      shell: "apt-get install -y nodejs"
+      become: true    
+
     - name: Install node-red modules
       npm: 
         name: "{{ item }}"
         path: /home/pi/.node-red
       with_items: "{{ NODERED_MODULES }}"
 
-
+    - name: start and enable nodered service
+      systemd:
+        name: nodered
+        enabled: yes
+        state: started
+      become: true
