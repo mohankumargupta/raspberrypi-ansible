@@ -7,7 +7,7 @@
 #restore
 #dd if=mbr_image of=/dev/mmcblk0 
 #sfdisk /dev/mmcblk0 < pi_partitions
-#tar xvJf turboraspbian.img
+#tar xvJf turboraspbian.img.xz
 
 
 
