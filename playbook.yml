@@ -2,59 +2,59 @@
 # If you see {{SOME_VARIABLE}} in the yml files, these are 
 # Ansible variables, defined in the group_vars directory 
 
-- include: prerequisites.yml
+- import_playbook: prerequisites.yml
   tags:
     - prerequisites
 
-- include: apt-software.yml
+- import_playbook: apt-software.yml
   tags:
     - apt
 
-- include: raspbian-setup.yml
+- import_playbook: raspbian-setup.yml
   tags: raspbiansetup
 
-- include: keyboard-layout.yml
+- import_playbook: keyboard-layout.yml
   tags:
     - keyboard
 
-- include: node-red-better-upgrade-method.yml
+- import_playbook: node-red-better-upgrade-method.yml
   tags:
     - nodered
 
-- include: python.yml
+- import_playbook: python.yml
   tags:
     - python
 
-- include: amazon-alexa.yml
+- import_playbook: amazon-alexa.yml
   tags:
     - voice
     - alexa
 
-- include: google-assistant.yml
+- import_playbook: google-assistant.yml
   tags:
     - voice
     - googleassistant
 
-- include: nginx.yml
+- import_playbook: nginx.yml
   tags:
     - nginx
 
-- include: sambafiles.yml
+- import_playbook: sambafiles.yml
   tags:
     - samba
 
-- include: pip.yml
+- import_playbook: pip.yml
   tags:
     - pip
 
-- include: docker.yml
+- import_playbook: docker.yml
   tags:
     - docker
 
-- include: jupyter.yml
+- import_playbook: jupyter.yml
   tags:
     - jupyter
 
-- include: ngrok.yml
+- import_playbook: ngrok.yml
   tags:
     - ngrok
