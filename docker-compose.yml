@@ -1,12 +1,20 @@
 version: '2'
 services:
+  #web:
+  #  image: tmb28054/rpi-apache-php
+  #  container_name: apache
+  #  ports:
+  #    - 8000:80
+  #  volumes:
+  #    - /storage/docker/webserver/html:/var/www/html
+
   web:
-    image: tmb28054/rpi-apache-php
+    image: httpd
     container_name: apache
     ports:
-      - 8000:80
+      - 80:80
     volumes:
-      - /storage/docker/webserver/html:/var/www/html
+      - /storage/docker/webserver/html:/usr/local/apache2/htdocs/
 
   portainer:
     image: portainer/portainer:linux-arm
@@ -30,13 +38,20 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
-  nodered:
-    container_name: nodered
-    image: nodered/node-red-docker:rpi
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/raspberrypi3-homeassistant
     ports:
-      - 1881:1880
-    volumes:
-      - /storage/docker/nodered:/data
+      - 8123:8123
+
+
+  #nodered:
+  #  container_name: nodered
+  #  image: nodered/node-red-docker:0.17.2-rpi
+  #  ports:
+  #    - 1881:1880
+  #  volumes:
+  #    - /storage/docker/nodered:/data
 
   #jupyter:
   #  container_name: jupyter

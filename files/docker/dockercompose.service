@@ -2,10 +2,10 @@
 Description=dockercompose
 Requires=rc-local.service
 After=rc-local.service
+After=dockerhack.service
 
 [Service]
 WorkingDirectory=/storage/docker
-ExecStartPre=/bin/sleep 60
 ExecStart=/usr/local/bin/docker-compose up -d
 
 [Install]

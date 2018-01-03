@@ -3,9 +3,9 @@
   hosts: raspberrypis
   become: true
   tasks:
-    #- name: Install docker
-    #  shell: "curl -sSL https://get.docker.com/ | sudo bash"
-
+    - name: Install docker
+      shell: "curl -fsSL https://get.docker.com/ | bash"
+      
     - name: Copy docker-compose.yml to pi
       copy:
         src: docker-compose.yml
@@ -14,15 +14,15 @@
         group: nogroup
         mode: 0777        
 
-    - name: Download docker deb
-      shell: wget --no-check-certificate -O /storage/docker/docker/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
-      tags:
-        - hack
+    #- name: Download docker deb
+    #  shell: wget --no-check-certificate -O /storage/docker/docker/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
+    #  tags:
+    #    - hack
 
-    - name: Install docker
-      shell: dpkg -i docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
-      args:
-        chdir: /storage/docker/docker
+    #- name: Install docker
+    #  shell: dpkg -i docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
+    #  args:
+    #    chdir: /storage/docker/docker
 
     - name: Check docker status
       shell: /usr/bin/env docker version
@@ -41,6 +41,10 @@
     #  until: result.rc|succeeded
     #  tags:
     #    - startcontainers
+
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
 
     - name: Start docker containers
       shell: bash /storage/docker/docker/dockercomposescript.sh
@@ -61,11 +65,24 @@
       tags:
         - dockercomposeservice
 
-    - name: Enable docker-compose systemd service
+    - name: Enable docker-hack systemd service
       systemd:
         name: dockerhack
         enabled: yes
       tags:
         - hack
 
+    - name: Copy docker-compose systemd files
+      copy:
+        remote_src: yes
+        src: /storage/docker/docker/dockercompose.service
+        dest: /etc/systemd/system
+      tags:
+        - dockercompose
 
+    - name: Enable docker-compose systemd service
+      systemd:
+        name: dockercompose
+        enabled: yes
+      tags:
+        - hack

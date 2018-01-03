@@ -35,21 +35,17 @@
     - voice
     - googleassistant
 
-- import_playbook: nginx.yml
-  tags:
-    - nginx
+#- import_playbook: nginx.yml
+#  tags:
+#   - nginx
 
 - import_playbook: sambafiles.yml
   tags:
     - samba
 
-- import_playbook: pip.yml
-  tags:
-    - pip
-
-- import_playbook: docker.yml
-  tags:
-    - docker
+#- import_playbook: pip.yml
+#  tags:
+#    - pip
 
 - import_playbook: jupyter.yml
   tags:
@@ -58,3 +54,8 @@
 - import_playbook: ngrok.yml
   tags:
     - ngrok
+
+- import_playbook: docker.yml
+  tags:
+    - docker
+

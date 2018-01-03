@@ -1,30 +1,30 @@
 ---
-- name: Jupyter and tensorflow and Julia
+- name: Install Jupyter 
   hosts: raspberrypis
   become: true
   tasks:
-    - name: Fix broken packages
-      shell: apt-get -y -f install
+    #- name: Fix broken packages
+    #  shell: apt-get -y -f install
 
-    - name: Install Julia
-      apt: 
-        name: "{{item}}"
-      with_items:
-        - julia
-        - libzmq3-dev
-        - python3-zmq
-        - "r-base"
-        - "libssl-dev"
-        - "python-seaborn" 
-        - "python-pandas"
-        - "python-matplotlib"
-        - "ttf-bitstream-vera"
-        - "python-ipykernel"
-        - "python3-ipykernel"
-      retries: 2
-      register: result
-      until: result|succeeded
-      ignore_errors: yes
+    #- name: Install Julia
+    #  apt: 
+    #    name: "{{item}}"
+    #  with_items:
+    #    - julia
+    #    - libzmq3-dev
+    #    - python3-zmq
+    #    - "r-base"
+    #    - "libssl-dev"
+    #    - "python-seaborn" 
+    #    - "python-pandas"
+    #    - "python-matplotlib"
+    #    - "ttf-bitstream-vera"
+    #    - "python-ipykernel"
+    #    - "python3-ipykernel"
+    #  retries: 2
+    #  register: result
+    #  until: result|succeeded
+    #  ignore_errors: yes
 
     #- name: Install Jupyter on Python 2
     #  pip:
@@ -36,22 +36,22 @@
       register: result
       until: result|succeeded     
 
-    - name: remove julia
-      apt:
-        name: julia
-        state: absent
-      tags:
-        - hack
+    #- name: remove julia
+    #  apt:
+    #    name: julia
+    #    state: absent
+    #  tags:
+    #    - hack
 
-    - name: install julia
-      apt:
-        name: julia
-      tags:
-        - hack
+    #- name: install julia
+    #  apt:
+    #    name: julia
+    #  tags:
+    #    - hack
 
-    - name: Install IJulia
-      shell: |
-        julia -e 'Pkg.add("IJulia");'
+    #- name: Install IJulia
+    #  shell: |
+    #    julia -e 'Pkg.add("IJulia");'
 
     - name: Copy systemd for jupyter-notebook
       copy:
@@ -71,16 +71,16 @@
         enabled: yes
         state: started
 
-    #- name: Install Ipython for Python 2
-    #  pip:
-    #    name: ipykernel
-    #  retries: 2
-    #  register: result
-    #  until: result|succeeded
-    #  ignore_errors: yes
+    - name: Install Ipython for Python 2
+      pip:
+        name: ipykernel
+      retries: 2
+      register: result
+      until: result|succeeded
+      ignore_errors: yes
 
-    - name: Install tensorflow
-      shell: pip install https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
+    #- name: Install tensorflow
+    #  shell: pip install https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 
 
     - name: Install Ipython2 kernel
