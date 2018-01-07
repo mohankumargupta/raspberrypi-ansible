@@ -3,6 +3,9 @@
   hosts: raspberrypis
   become: true
   tasks:
+    - name: total hack
+      shell: rm -rf /var/lib/apt/lists/*
+
     - name: Install docker
       shell: "curl -fsSL https://get.docker.com/ | bash"
       

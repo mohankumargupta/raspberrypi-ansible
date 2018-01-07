@@ -47,15 +47,16 @@
 #  tags:
 #    - pip
 
-- import_playbook: jupyter.yml
-  tags:
-    - jupyter
+
 
 - import_playbook: ngrok.yml
   tags:
     - ngrok
 
+- import_playbook: jupyter.yml
+  tags:
+    - jupyter
+
 - import_playbook: docker.yml
   tags:
     - docker
-

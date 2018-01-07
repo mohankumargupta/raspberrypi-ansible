@@ -29,7 +29,6 @@ RASPICONFIG_ENABLE_RGPIO: false
 # apt-get install software packages
 RASPBIAN_APT_INSTALL:
   - camorama
-  - nginx
 
 # install node-red modules
 NODERED_MODULES: 
