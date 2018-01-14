@@ -1,0 +1,10 @@
+AppDaemon:
+  logfile: STDOUT
+  errorfile: STDERR
+  threads: 10
+
+HASS:
+  ha_url: http://localhost:8123
+
+HADashboard:
+  dash_url: http://localhost:5050

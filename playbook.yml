@@ -25,15 +25,15 @@
   tags:
     - python
 
-- import_playbook: amazon-alexa.yml
-  tags:
-    - voice
-    - alexa
+#- import_playbook: amazon-alexa.yml
+#  tags:
+#    - voice
+#    - alexa
 
-- import_playbook: google-assistant.yml
-  tags:
-    - voice
-    - googleassistant
+#- import_playbook: google-assistant.yml
+#  tags:
+#    - voice
+#    - googleassistant
 
 #- import_playbook: nginx.yml
 #  tags:
@@ -43,19 +43,9 @@
   tags:
     - samba
 
-#- import_playbook: pip.yml
-#  tags:
-#    - pip
-
-
-
 - import_playbook: ngrok.yml
   tags:
     - ngrok
-
-- import_playbook: jupyter.yml
-  tags:
-    - jupyter
 
 - import_playbook: docker.yml
   tags:

@@ -1,12 +1,13 @@
 [Unit]
 Description=dockercompose
-Requires=rc-local.service
-After=rc-local.service
-After=dockerhack.service
+Requires=dockerhack.service
+Wants=dockerhack.service
 
 [Service]
 WorkingDirectory=/storage/docker
-ExecStart=/usr/local/bin/docker-compose up -d
+ExecStartPre=/bin/sleep 90
+ExecStart=/usr/bin/docker-compose up -d
+TimeoutSec=infinity
 
 [Install]
 WantedBy=multi-user.target

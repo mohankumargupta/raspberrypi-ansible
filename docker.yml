@@ -17,39 +17,14 @@
         group: nogroup
         mode: 0777        
 
-    #- name: Download docker deb
-    #  shell: wget --no-check-certificate -O /storage/docker/docker/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
-    #  tags:
-    #    - hack
-
-    #- name: Install docker
-    #  shell: dpkg -i docker-engine_17.05.0~ce-0~raspbian-jessie_armhf.deb
-    #  args:
-    #    chdir: /storage/docker/docker
-
     - name: Check docker status
       shell: /usr/bin/env docker version
-
-
-
-
-    #- name: Start docker containers
-    #  docker_service:
-    #    project_src: /storage/docker
-    #    state: present
-    #    pull: yes
-    #  retries: 3
-    #  delay: 3
-    #  register: result
-    #  until: result.rc|succeeded
-    #  tags:
-    #    - startcontainers
 
     - name: Install docker-compose
       apt:
         name: docker-compose
 
-    - name: Start docker containers
+    - name: Start docker containers (could take 30min)
       shell: bash /storage/docker/docker/dockercomposescript.sh
       args:
         chdir: /storage/docker
@@ -66,7 +41,7 @@
         src: /storage/docker/docker/dockerhack.service
         dest: /etc/systemd/system
       tags:
-        - dockercomposeservice
+        - dockerservices
 
     - name: Enable docker-hack systemd service
       systemd:
@@ -74,6 +49,7 @@
         enabled: yes
       tags:
         - hack
+        - dockerservices
 
     - name: Copy docker-compose systemd files
       copy:
@@ -82,6 +58,7 @@
         dest: /etc/systemd/system
       tags:
         - dockercompose
+        - dockerservices
 
     - name: Enable docker-compose systemd service
       systemd:
@@ -89,3 +66,4 @@
         enabled: yes
       tags:
         - hack
+        - dockerservices

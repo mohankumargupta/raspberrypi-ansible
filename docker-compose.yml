@@ -1,13 +1,5 @@
 version: '2'
 services:
-  #web:
-  #  image: tmb28054/rpi-apache-php
-  #  container_name: apache
-  #  ports:
-  #    - 8000:80
-  #  volumes:
-  #    - /storage/docker/webserver/html:/var/www/html
-
   web:
     image: httpd
     container_name: apache
@@ -41,10 +33,57 @@ services:
   homeassistant:
     container_name: homeassistant
     image: homeassistant/raspberrypi3-homeassistant
+    network_mode: "host"
     ports:
       - 8123:8123
+    volumes:
+      - /storage/docker/homeassistant:/config
 
+  appdaemon:
+    container_name: appdaemon
+    image: torkildr/rpi-appdaemon
+    network_mode: "host"
+    environment:
+      - HA_URL:"http://localhost:8123"
+      - DASH_URL:"http://localhost:5050"
+    ports:
+      - 5050:5050
+    depends_on:
+      - homeassistant
+    volumes:
+      - /storage/docker/homeassistant-appdaemon:/conf
 
+  tensorflow:
+    container_name: tensorflow
+    image: elswork/rpi-tensorflow
+    ports:
+      - 8888:8888
+      - 6006:6006
+    volumes:
+      - /storage/docker/jupyter:/root/.jupyter
+
+  openhab:
+    container_name: openhab
+    image: openhab/openhab:2.3.0-snapshot-armhf-debian
+    tty: true
+    ports:
+      - 8080:8080
+      - 8443:8443
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/storage/docker/openhab/openhab_addons:/openhab/addons"
+      - "/storage/docker/openhab/openhab_conf:/openhab/conf"
+      - "/storage/docker/openhab/openhab_userdata:/openhab/userdata"
+
+  #appdaemon:
+  #  container_name: appdaemon
+  #  image: acockburn/appdaemon
+  #  ports:
+  #    - 5050:5050
+  #  depends_on:
+  #    - homeassistant
+          
   #nodered:
   #  container_name: nodered
   #  image: nodered/node-red-docker:0.17.2-rpi

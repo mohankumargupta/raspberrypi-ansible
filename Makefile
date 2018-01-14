@@ -6,8 +6,6 @@ ifdef SKIPTAGS
 APPENDSTRING:=$(APPENDSTRING) --skip-tags=$(SKIPTAGS)
 endif
 
-
-
 .PHONY: all clean run tags test
 
 all:

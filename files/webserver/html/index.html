@@ -94,11 +94,32 @@
               },
               {
                value: false,
-               service: 'Jupyter',
+               service: 'Jupyter and Tensorflow',
                description: 'Jupyter Notebook',
                port: 8888,
                url: 'http://' + hostname + ':8888'                
-              }
+              },
+              {
+               value: false,
+               service: 'Home Assistant',
+               description: 'Home Assistant',
+               port: 8123,
+               url: 'http://' + hostname + ':8123'                
+              },              
+              {
+               value: false,
+               service: 'Appdaemon for Home Assistant',
+               description: 'HADashboard',
+               port: 5050,
+               url: 'http://' + hostname + ':5050'                
+              },
+              {
+               value: false,
+               service: 'OpenHAB',
+               description: 'OpenHAB',
+               port: 8080,
+               url: 'http://' + hostname + ':8080'                
+              }              
               ]
             }
          },        
