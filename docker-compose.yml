@@ -76,32 +76,13 @@ services:
       - "/storage/docker/openhab/openhab_conf:/openhab/conf"
       - "/storage/docker/openhab/openhab_userdata:/openhab/userdata"
 
-  #appdaemon:
-  #  container_name: appdaemon
-  #  image: acockburn/appdaemon
-  #  ports:
-  #    - 5050:5050
-  #  depends_on:
-  #    - homeassistant
-          
-  #nodered:
-  #  container_name: nodered
-  #  image: nodered/node-red-docker:0.17.2-rpi
-  #  ports:
-  #    - 1881:1880
-  #  volumes:
-  #    - /storage/docker/nodered:/data
-
-  #jupyter:
-  #  container_name: jupyter
-  #  image: romilly/rpi-docker-tensorflow
-  #  ports:
-  #    - 8009:8009
-  #    - 6006:6006
-  #  volumes:
-  #    - /storage/docker/jupyter/notebooks:/notebooks/myNotebooks
-  #    - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+  mqtt:
+    container_name: mqtt
+    image: mohankumargupta/mqtt
+    ports:
+      - 1883:1883
+    volumes:
+      - "/storage/docker/mqtt/:/mosquitto/config/"
 
 
 
-  
