@@ -55,7 +55,7 @@ services:
 
   tensorflow:
     container_name: tensorflow
-    image: elswork/rpi-tensorflow
+    image: elswork/rpi-tensorflow:1.5.0
     ports:
       - 8888:8888
       - 6006:6006
