@@ -43,10 +43,10 @@
   tags:
     - samba
 
-- import_playbook: ngrok.yml
-  tags:
-    - ngrok
-
 - import_playbook: docker.yml
   tags:
     - docker
+
+- import_playbook: ngrok.yml
+  tags:
+    - ngrok

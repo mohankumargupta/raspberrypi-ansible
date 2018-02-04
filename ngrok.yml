@@ -24,13 +24,14 @@
       pip:
         name: python-twitter
 
-    - name: start and enable ngrok service
-      systemd:
-        name: ngrok
-        enabled: yes
-        state: started
+    #- name: start and enable ngrok service
+    #  systemd:
+    #    name: ngrok
+    #    enabled: yes
+    #    state: started
 
-
+    - name: Start and enable ngrok service
+      shell: "systemctl start ngrok && systemctl enable ngrok" 
 
 
 
