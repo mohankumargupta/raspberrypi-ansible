@@ -56,11 +56,15 @@ services:
   tensorflow:
     container_name: tensorflow
     image: elswork/rpi-tensorflow:1.5.0
+    command: bash /run_jupyter.sh
     ports:
       - 8888:8888
       - 6006:6006
     volumes:
       - /storage/docker/jupyter:/root/.jupyter
+      - /storage/docker/jupyter/tensorboards:/tensorboards
+      - /storage/docker/jupyter/run_jupyter.sh:/run_jupyter.sh
+      - /storage/docker/jupyter/notebooks:/notebooks
 
   openhab:
     container_name: openhab
