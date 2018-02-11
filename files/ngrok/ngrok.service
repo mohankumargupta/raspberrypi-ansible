@@ -10,7 +10,7 @@ RestartSec=1min
 StandardOutput=null
 StandardError=null
 ExecStart=/usr/local/bin/ngrok start --all --config /storage/docker/ngrok/ngrok.yml
-ExecStartPost=/storage/docker/ngrok/ngrok.py 
+#ExecStartPost=/storage/docker/ngrok/ngrok.py 
 ExecStop=/usr/bin/killall ngrok
 
 [Install]
