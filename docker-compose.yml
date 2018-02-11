@@ -41,7 +41,7 @@ services:
 
   appdaemon:
     container_name: appdaemon
-    image: torkildr/rpi-appdaemon
+    image: torkildr/rpi-appdaemon:2.1.11
     network_mode: "host"
     environment:
       - HA_URL:"http://localhost:8123"
