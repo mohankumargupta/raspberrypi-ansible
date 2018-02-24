@@ -88,5 +88,25 @@ services:
     volumes:
       - "/storage/docker/mqtt/:/mosquitto/config/"
 
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - "/storage/docker/influxdb:/var/lib/influxdb"
+
+  mongodb:
+    container_name: mongodb
+    image: joseba/rpi-mongodb
+    ports:
+      - 27017:27017
+      - 28017:28017
+    volumes:
+      - "/storage/docker/mongodb/db:/data/db"
+      - "/storage/docker/mongodb/configdb:/data/configdb"
+
+
+
 
 
