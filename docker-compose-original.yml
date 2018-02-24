@@ -1,5 +1,12 @@
 version: '2'
 services:
+  web:
+    image: httpd
+    container_name: apache
+    ports:
+      - 80:80
+    volumes:
+      - /storage/docker/webserver/html:/usr/local/apache2/htdocs/
 
   portainer:
     image: portainer/portainer:linux-arm
@@ -9,55 +16,6 @@ services:
       - 9000:9000 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-  phpmyadmin:
-    image: nidorpi/rpi-nginx-phpmyadmin
-    container_name: phpmyadmin
-    volumes:
-      - /storage/docker/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
-    depends_on:
-      - db
-    ports:
-      - 8001:80
-
-  web:
-    image: calangoclube/rpi-apache
-    container_name: apache
-    ports:
-      - 8000:80
-    depends_on:
-      - db
-    volumes:
-      - /storage/docker/webserver/html:/var/www/html
-
-  db:
-    image: hypriot/rpi-mysql
-    container_name: mysql
-    ports:
-      - 3306:3306
-    volumes:
-      - /storage/docker/mysql:/etc/mysql/conf.d
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: helloworld
-    
-  influxdb:
-    image: hypriot/rpi-influxdb
-    container_name: influxdb
-    ports:
-      - 8086:8086
-    environment:
-      ADMIN_USER: root
-      INFLUXDB_INIT_PWD: root
-      PRE_CREATE_DB: "db1;db2;db3"
-
-  grafana:
-    image: fg2it/grafana-armhf:v4.4.3
-    container_name: grafana
-    ports: 
-      - 3001:3000
-    volumes:
-      - /storage/docker/grafana:/etc/grafana
 
   samba:
     container_name: samba
@@ -72,17 +30,83 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/raspberrypi3-homeassistant
+    network_mode: "host"
+    ports:
+      - 8123:8123
+    volumes:
+      - /storage/docker/homeassistant:/config
 
-  #jupyter:
-  #  container_name: jupyter
-  #  image: romilly/rpi-docker-tensorflow
-  #  ports:
-  #    - 8009:8009
-  #    - 6006:6006
-  #  volumes:
-  #    - /storage/docker/jupyter/notebooks:/notebooks/myNotebooks
-  #    - /storage/docker/jupyter/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+  appdaemon:
+    container_name: appdaemon
+    image: torkildr/rpi-appdaemon:2.1.11
+    network_mode: "host"
+    environment:
+      - HA_URL:"http://localhost:8123"
+      - DASH_URL:"http://localhost:5050"
+    ports:
+      - 5050:5050
+    depends_on:
+      - homeassistant
+    volumes:
+      - /storage/docker/homeassistant-appdaemon:/conf
+
+  tensorflow:
+    container_name: tensorflow
+    image: mohankumargupta/rpi-tensorflow
+    command: bash /run_jupyter.sh
+    ports:
+      - 8888:8888
+      - 6006:6006
+    volumes:
+      - /storage/docker/jupyter:/root/.jupyter
+      - /storage/docker/jupyter/tensorboards:/tensorboards
+      - /storage/docker/jupyter/run_jupyter.sh:/run_jupyter.sh
+      - /storage/docker/jupyter/notebooks:/notebooks
+
+  openhab:
+    container_name: openhab
+    image: openhab/openhab:2.3.0-snapshot-armhf-debian
+    tty: true
+    ports:
+      - 8080:8080
+      - 8443:8443
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/storage/docker/openhab/openhab_addons:/openhab/addons"
+      - "/storage/docker/openhab/openhab_conf:/openhab/conf"
+      - "/storage/docker/openhab/openhab_userdata:/openhab/userdata"
+
+  mqtt:
+    container_name: mqtt
+    image: mohankumargupta/mqtt
+    ports:
+      - 1883:1883
+    volumes:
+      - "/storage/docker/mqtt/:/mosquitto/config/"
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - "/storage/docker/influxdb:/var/lib/influxdb"
+
+  mongodb:
+    container_name: mongodb
+    image: joseba/rpi-mongodb
+    ports:
+      - 27017:27017
+      - 28017:28017
+    volumes:
+      - "/storage/docker/mongodb/db:/data/db"
+      - "/storage/docker/mongodb/configdb:/data/configdb"
 
 
 
-  
+
+

@@ -1,5 +1,6 @@
 version: '2'
 services:
+{% if dockerWeb == True %}
   web:
     image: httpd
     container_name: apache
@@ -8,6 +9,8 @@ services:
     volumes:
       - /storage/docker/webserver/html:/usr/local/apache2/htdocs/
 
+{% endif %}
+{% if dockerPortainer == true %}
   portainer:
     image: portainer/portainer:linux-arm
     container_name: portainer
@@ -17,6 +20,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+{% endif %}
+{% if dockerSAMBA == true %}
   samba:
     container_name: samba
     image: dastrasmue/rpi-samba:v3
@@ -30,6 +35,8 @@ services:
       - /storage:/share
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
+{% endif %}  
+{% if dockerHomeAssistant == true %}
   homeassistant:
     container_name: homeassistant
     image: homeassistant/raspberrypi3-homeassistant
@@ -39,6 +46,8 @@ services:
     volumes:
       - /storage/docker/homeassistant:/config
 
+{% endif %}
+{% if dockerHomeAssistantAppDaemon == true %}
   appdaemon:
     container_name: appdaemon
     image: torkildr/rpi-appdaemon:2.1.11
@@ -53,8 +62,10 @@ services:
     volumes:
       - /storage/docker/homeassistant-appdaemon:/conf
 
-  tensorflow:
-    container_name: tensorflow
+{% endif %}
+{% if dockerJupyter == true %}
+  jupyter:
+    container_name: jupyter
     image: mohankumargupta/rpi-tensorflow
     command: bash /run_jupyter.sh
     ports:
@@ -66,6 +77,8 @@ services:
       - /storage/docker/jupyter/run_jupyter.sh:/run_jupyter.sh
       - /storage/docker/jupyter/notebooks:/notebooks
 
+{% endif %}
+{% if dockerOpenHAB == true %}
   openhab:
     container_name: openhab
     image: openhab/openhab:2.3.0-snapshot-armhf-debian
@@ -80,6 +93,8 @@ services:
       - "/storage/docker/openhab/openhab_conf:/openhab/conf"
       - "/storage/docker/openhab/openhab_userdata:/openhab/userdata"
 
+{% endif %}
+{% if dockerMQTT == true %}
   mqtt:
     container_name: mqtt
     image: mohankumargupta/mqtt
@@ -88,6 +103,8 @@ services:
     volumes:
       - "/storage/docker/mqtt/:/mosquitto/config/"
 
+{% endif %}
+{% if dockerInfluxDB == true %}
   influxdb:
     container_name: influxdb
     image: influxdb
@@ -96,6 +113,8 @@ services:
     volumes:
       - "/storage/docker/influxdb:/var/lib/influxdb"
 
+{% endif %}
+{% if dockerMongoDB == true %}
   mongodb:
     container_name: mongodb
     image: joseba/rpi-mongodb
@@ -106,7 +125,4 @@ services:
       - "/storage/docker/mongodb/db:/data/db"
       - "/storage/docker/mongodb/configdb:/data/configdb"
 
-
-
-
-
+{% endif %}

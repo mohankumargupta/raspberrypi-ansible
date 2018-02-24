@@ -1,0 +1,44 @@
+version: '2'
+services:
+  web:
+    image: httpd
+    container_name: apache
+    ports:
+      - 80:80
+    volumes:
+      - /storage/docker/webserver/html:/usr/local/apache2/htdocs/
+
+  portainer:
+    image: portainer/portainer:linux-arm
+    container_name: portainer
+    command: --no-auth
+    ports:
+      - 9000:9000 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  samba:
+    container_name: samba
+    image: dastrasmue/rpi-samba:v3
+    network_mode: "host"
+    ports: 
+      - 137:137/udp
+      - 138:138/udp
+      - 139:139
+      - 445:445
+    volumes:
+      - /storage:/share
+    command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
+  
+  
+
+
+
+
+
+
+
+
+
+
+

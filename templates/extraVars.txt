@@ -1,0 +1,11 @@
+
+dockerWeb: true
+dockerPortainer: true
+dockerSAMBA: true
+dockerHomeAssistant: false
+dockerHomeAssistantAppDaemon: false
+dockerOpenHAB: false
+dockerMQTT: false
+dockerInfluxDB: false
+dockerMongoDB: false
+dockerJupyter: false

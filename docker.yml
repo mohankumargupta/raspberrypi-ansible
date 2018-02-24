@@ -5,17 +5,35 @@
   tasks:
     - name: total hack
       shell: rm -rf /var/lib/apt/lists/*
+      tags:
+        - installdocker
 
     - name: Install docker
       shell: "curl -fsSL https://get.docker.com/ | bash"
-      
+      tags:
+        - installdocker
+
     - name: Copy docker-compose.yml to pi
-      copy:
-        src: docker-compose.yml
-        dest: /storage/docker
+      template:
+        src: docker-compose-complete-jinja.yml
+        dest: /storage/docker/docker-compose.yml
         owner: nobody
         group: nogroup
-        mode: 0777        
+        mode: 0777  
+        force: yes 
+      vars:
+        dockerWeb: "{{ DOCKER_WEB }}"
+        dockerPortainer: "{{ DOCKER_PORTAINER }}"
+        dockerSAMBA: "{{ DOCKER_SAMBA }}"
+        dockerHomeAssistant: "{{ DOCKER_HOMEASSISTANT }}"
+        dockerHomeAssistantAppDaemon: "{{ DOCKER_HOMEASSISTANT_APPDAEMON }}"
+        dockerOpenHAB: "{{ DOCKER_OPENHAB }}"
+        dockerMQTT: "{{ DOCKER_MQTT }}"
+        dockerInfluxDB: "{{ DOCKER_INFLUXDB }}"
+        dockerMongoDB: "{{ DOCKER_MONGODB }}"
+        dockerJupyter: "{{ DOCKER_JUPYTER }}"
+      tags:
+        - dockertemplate
 
     - name: Check docker status
       shell: /usr/bin/env docker version

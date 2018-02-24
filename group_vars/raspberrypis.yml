@@ -60,6 +60,27 @@ PYTHON3_PIP_MODULES:
   - pip
   - setuptools
 
+# Install and configure ngrok
+ENABLE_NGROK: false
+
+# Install and configure docker
+ENABLE_DOCKER: true
+DOCKER_WEB: true
+DOCKER_PORTAINER: true
+DOCKER_SAMBA: true
+DOCKER_HOMEASSISTANT: false
+DOCKER_HOMEASSISTANT_APPDAEMON: false
+DOCKER_OPENHAB: false
+DOCKER_MQTT: true
+DOCKER_INFLUXDB: true
+DOCKER_MONGODB: false
+DOCKER_JUPYTER: false
+
+
+
+
+
+
 
 
 
