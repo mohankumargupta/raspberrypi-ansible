@@ -154,6 +154,19 @@ services:
        - 1881:1880
      volumes:
        - "/storage/docker/nodered:/data"
+
 {% endif %}
+{% if dockerGrafana == True %}
+  grafana:
+     container_name: grafana
+     image: fg2it/grafana-armhf:v5.0.0
+     ports:
+       - 3000:3000
+     volumes:
+       - "/storage/docker/grafana/data:/var/lib/grafana"
+       - "/storage/docker/grafana/config:/etc/grafana"
+
+{% endif %}
+
 
 
