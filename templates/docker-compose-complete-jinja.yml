@@ -10,7 +10,7 @@ services:
       - /storage/docker/webserver/html:/usr/local/apache2/htdocs/
 
 {% endif %}
-{% if dockerPortainer == true %}
+{% if dockerPortainer == True %}
   portainer:
     image: portainer/portainer:linux-arm
     container_name: portainer
@@ -21,7 +21,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 {% endif %}
-{% if dockerSAMBA == true %}
+{% if dockerSAMBA == True %}
   samba:
     container_name: samba
     image: dastrasmue/rpi-samba:v3
@@ -36,7 +36,7 @@ services:
     command: ["-s", "public:/share/public:rw:", "-s", "docker:/share/docker:rw:"]
   
 {% endif %}  
-{% if dockerHomeAssistant == true %}
+{% if dockerHomeAssistant == True %}
   homeassistant:
     container_name: homeassistant
     image: homeassistant/raspberrypi3-homeassistant
@@ -47,7 +47,7 @@ services:
       - /storage/docker/homeassistant:/config
 
 {% endif %}
-{% if dockerHomeAssistantAppDaemon == true %}
+{% if dockerHomeAssistantAppDaemon == True %}
   appdaemon:
     container_name: appdaemon
     image: torkildr/rpi-appdaemon:2.1.11
@@ -63,7 +63,7 @@ services:
       - /storage/docker/homeassistant-appdaemon:/conf
 
 {% endif %}
-{% if dockerJupyter == true %}
+{% if dockerJupyter == True %}
   jupyter:
     container_name: jupyter
     image: mohankumargupta/rpi-tensorflow
@@ -78,7 +78,7 @@ services:
       - /storage/docker/jupyter/notebooks:/notebooks
 
 {% endif %}
-{% if dockerOpenHAB == true %}
+{% if dockerOpenHAB == True %}
   openhab:
     container_name: openhab
     image: openhab/openhab:2.3.0-snapshot-armhf-debian
@@ -94,7 +94,7 @@ services:
       - "/storage/docker/openhab/openhab_userdata:/openhab/userdata"
 
 {% endif %}
-{% if dockerMQTT == true %}
+{% if dockerMQTT == True %}
   mqtt:
     container_name: mqtt
     image: mohankumargupta/mqtt
@@ -104,7 +104,7 @@ services:
       - "/storage/docker/mqtt/:/mosquitto/config/"
 
 {% endif %}
-{% if dockerInfluxDB == true %}
+{% if dockerInfluxDB == True %}
   influxdb:
     container_name: influxdb
     image: influxdb
@@ -112,11 +112,11 @@ services:
       - 8086:8086
     volumes:
       - "/storage/docker/influxdb:/var/lib/influxdb"
-
 {% endif %}
-{% if dockerMongoDB == true %}
+{% if dockerMongoDB == True %}
   mongodb:
     container_name: mongodb
+    command: ["mongod","--rest", "--journal"]
     image: joseba/rpi-mongodb
     ports:
       - 27017:27017
@@ -126,3 +126,34 @@ services:
       - "/storage/docker/mongodb/configdb:/data/configdb"
 
 {% endif %}
+{% if dockerRedis == True %}
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - "/storage/docker/redis/data:/data"
+
+{% endif %}
+{% if dockerPostgres == True %}
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - "/storage/docker/postgres/data:/var/lib/postgresql/data"
+
+{% endif %}
+{% if dockerNodeRed == True %}
+  nodered:
+     container_name: nodered
+     image: nodered/node-red-docker:rpi-v8
+     ports:
+       - 1881:1880
+     volumes:
+       - "/storage/docker/nodered:/data"
+{% endif %}
+
+

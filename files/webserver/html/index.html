@@ -119,7 +119,42 @@
                description: 'OpenHAB',
                port: 8080,
                url: 'http://' + hostname + ':8080'                
-              }              
+              },
+              {
+               value: false,
+               service: 'InfluxDB',
+               description: 'Measurement datastore',
+               port: 8086,
+               url: 'http://' + hostname + ':8086'                
+              },
+              {
+               value: false,
+               service: 'Redis',
+               description: 'Key value datastore',
+               port: 6379,
+               url: 'http://' + hostname + ':6379'                
+              },                
+              {
+               value: false,
+               service: 'MongoDB',
+               description: 'MongoDB',
+               port: 27017,
+               url: 'http://' + hostname + ':27017'                
+              },                                         
+              {
+               value: false,
+               service: 'MQTT',
+               description: 'MQTT Broker',
+               port: 1883,
+               url: 'http://' + hostname + ':1883'      
+              },
+              {
+               value: false,
+               service: 'Postgres',
+               description: 'Another database',
+               port: 5432,
+               url: 'http://' + hostname + ':5432'      
+              },
               ]
             }
          },        

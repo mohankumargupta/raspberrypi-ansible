@@ -29,6 +29,7 @@ RASPICONFIG_ENABLE_RGPIO: false
 # apt-get install software packages
 RASPBIAN_APT_INSTALL:
   - camorama
+  - influxdb-client
 
 # install node-red modules
 NODERED_MODULES: 
@@ -36,6 +37,7 @@ NODERED_MODULES:
   - node-red-node-arduino
   - node-red-contrib-sms-telstra
   - node-red-contrib-influxdb
+  - node-red-contrib-redis
 
 # Python
 PYTHON_INSTALL_MODULES: true
@@ -68,13 +70,16 @@ ENABLE_DOCKER: true
 DOCKER_WEB: true
 DOCKER_PORTAINER: true
 DOCKER_SAMBA: true
+DOCKER_MQTT: true
+DOCKER_INFLUXDB: true
 DOCKER_HOMEASSISTANT: false
 DOCKER_HOMEASSISTANT_APPDAEMON: false
 DOCKER_OPENHAB: false
-DOCKER_MQTT: true
-DOCKER_INFLUXDB: true
 DOCKER_MONGODB: false
 DOCKER_JUPYTER: false
+DOCKER_REDIS: false
+DOCKER_POSTGRES: false
+DOCKER_NODERED: false
 
 
 

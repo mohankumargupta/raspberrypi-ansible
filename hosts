@@ -6,5 +6,5 @@
 # hostname.
 
 [raspberrypis]
-raspberrypi ansible_host=192.168.81.41 ansible_user=pi
+raspberrypi ansible_host=192.168.81.35 ansible_user=pi
 

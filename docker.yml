@@ -32,8 +32,37 @@
         dockerInfluxDB: "{{ DOCKER_INFLUXDB }}"
         dockerMongoDB: "{{ DOCKER_MONGODB }}"
         dockerJupyter: "{{ DOCKER_JUPYTER }}"
+        dockerRedis: "{{ DOCKER_REDIS }}"
+        dockerPostgres: "{{ DOCKER_POSTGRES }}"
+        dockerNodeRed: "{{ DOCKER_NODERED }}"
       tags:
-        - dockertemplate
+        - dockercomposeconfig
+
+    - name: Copy kitchen sink docker-compose.yml to pi
+      template:
+        src: docker-compose-complete-jinja.yml
+        dest: /storage/docker/docker-compose-kitchensink.yml
+        owner: nobody
+        group: nogroup
+        mode: 0777  
+        force: yes 
+      vars:
+        dockerWeb: true
+        dockerPortainer: true
+        dockerSAMBA: true
+        dockerHomeAssistant: true
+        dockerHomeAssistantAppDaemon: true
+        dockerOpenHAB: true
+        dockerMQTT: true
+        dockerInfluxDB: true
+        dockerMongoDB: true
+        dockerJupyter: true
+        dockerRedis: true
+        dockerPostgres: true
+        dockerNodeRed: true
+
+      tags:
+        - dockercomposeconfig
 
     - name: Check docker status
       shell: /usr/bin/env docker version

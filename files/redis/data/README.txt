@@ -1,0 +1,1 @@
+Redis data stored in this directory.
