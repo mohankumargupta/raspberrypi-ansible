@@ -1,6 +1,6 @@
 sudo cat > /etc/default/keyboard <<EOF
 XKBMODEL="pc105"
-XKBLAYOUT="{{RASPIAN_KEYBOARD_LAYOUT}}"
+XKBLAYOUT="{{RASPBIAN_KEYBOARD_LAYOUT}}"
 XKBVARIANT=""
 XKBOPTIONS=""
 BACKSPACE="guess"
@@ -11,7 +11,7 @@ sudo udevadm trigger --subsystem-match=input --action=change
 #show some love for the virtual consoles as well
 #sudo debconf-set-selections <<< 'console-data console-data/keymap/policy select Select keymap from full list'
 sudo apt-get -q -y install console-data
-sudo localectl set-keymap --no-convert {{RASPIAN_KEYBOARD_LAYOUT}}
+sudo localectl set-keymap --no-convert {{RASPBIAN_KEYBOARD_LAYOUT}}
 sudo loadkeys us
 
 
