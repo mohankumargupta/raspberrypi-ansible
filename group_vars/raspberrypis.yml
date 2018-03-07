@@ -2,6 +2,8 @@
 # Users should edit this file
 # Format of this file http://docs.ansible.com/ansible/intro_inventory.html#splitting-out-host-and-group-specific-data
 
+# Hostname for Pi
+PI_HOSTNAME: "raspberry"
 
 # Password for user pi
 PI_USER_PASSWORD: "raspberry"
