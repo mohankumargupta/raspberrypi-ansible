@@ -13,6 +13,11 @@
       tags:
         - installdocker
 
+    - name: Grab docker containers from groups vars
+      set_fact: dockercontainers="{{ hostvars[\"raspberrypi\"][\"DOCKER\"] }}"
+      tags:
+        - dockercomposeconfig
+  
     - name: Copy docker-compose.yml to pi
       template:
         src: docker-compose-complete-jinja.yml
@@ -22,20 +27,8 @@
         mode: 0777  
         force: yes 
       vars:
-        dockerWeb: "{{ DOCKER_WEB }}"
-        dockerPortainer: "{{ DOCKER_PORTAINER }}"
-        dockerSAMBA: "{{ DOCKER_SAMBA }}"
-        dockerHomeAssistant: "{{ DOCKER_HOMEASSISTANT }}"
-        dockerHomeAssistantAppDaemon: "{{ DOCKER_HOMEASSISTANT_APPDAEMON }}"
-        dockerOpenHAB: "{{ DOCKER_OPENHAB }}"
-        dockerMQTT: "{{ DOCKER_MQTT }}"
-        dockerInfluxDB: "{{ DOCKER_INFLUXDB }}"
-        dockerMongoDB: "{{ DOCKER_MONGODB }}"
-        dockerJupyter: "{{ DOCKER_JUPYTER }}"
-        dockerRedis: "{{ DOCKER_REDIS }}"
-        dockerPostgres: "{{ DOCKER_POSTGRES }}"
-        dockerNodeRed: "{{ DOCKER_NODERED }}"
-        dockerGrafana: "{{ DOCKER_GRAFANA }}"
+        dockerKitchenSink: false
+        docker: "{{ dockercontainers }}"
       tags:
         - dockercomposeconfig
 
@@ -48,20 +41,8 @@
         mode: 0777  
         force: yes 
       vars:
-        dockerWeb: true
-        dockerPortainer: true
-        dockerSAMBA: true
-        dockerHomeAssistant: true
-        dockerHomeAssistantAppDaemon: true
-        dockerOpenHAB: true
-        dockerMQTT: true
-        dockerInfluxDB: true
-        dockerMongoDB: true
-        dockerJupyter: true
-        dockerRedis: true
-        dockerPostgres: true
-        dockerNodeRed: true
-        dockerGrafana: true
+        dockerKitchenSink: true 
+
       tags:
         - dockercomposeconfig
 
