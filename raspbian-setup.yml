@@ -40,59 +40,59 @@
 
     - name: Enable serial
       shell: "raspi-config nonint do_serial 0"
-      when: "{{ raspiconfig.SERIAL }}"
+      when: raspiconfig.SERIAL
 
     - name: Enable I2C
       shell: "raspi-config nonint do_i2c 0"
-      when: "{{ raspiconfig.I2C }}"
+      when: raspiconfig.I2C
 
     - name: Enable SPI
       shell: "raspi-config nonint do_spi 0"
-      when: "{{ raspiconfig.SPI }}"
+      when: raspiconfig.SPI
 
     - name: Enable Camera
       shell: "raspi-config nonint do_camera 0"
-      when: "{{ raspiconfig.CAMERA }}"
+      when: raspiconfig.CAMERA
 
     - name: Enable VNC
       shell: "raspi-config nonint do_vnc 0"
-      when: "{{ raspiconfig.VNC }}"
+      when: raspiconfig.VNC
 
     - name: Enable OneWire
       shell: "raspi-config nonint do_onewire 0"
-      when: "{{ raspiconfig.ONEWIRE }}"
+      when: raspiconfig.ONEWIRE
 
     - name: Enable Remote GPIO
       shell: "raspi-config nonint do_rgpio 0"
-      when: "{{ raspiconfig.RGPIO }}"
+      when: raspiconfig.RGPIO 
 
     - name: Disable serial
       shell: "raspi-config nonint do_serial 1"
-      when: "not {{ raspiconfig.SERIAL }}"
+      when: raspiconfig.SERIAL
 
     - name: Disable I2C
       shell: "raspi-config nonint do_i2c 1"
-      when: "not {{ RASPICONFIG_ENABLE_I2C }}"
+      when: not raspiconfig.I2C
 
     - name: Disable SPI
       shell: "raspi-config nonint do_spi 1"
-      when: "not {{ RASPICONFIG_ENABLE_SPI }}"
+      when: not raspiconfig.SPI
 
     - name: Disable Camera
       shell: "raspi-config nonint do_camera 1"
-      when: "not {{ RASPICONFIG_ENABLE_CAMERA }}"
+      when: not raspiconfig.CAMERA
 
     - name: Disable VNC
       shell: "raspi-config nonint do_vnc 1"
-      when: "not {{ RASPICONFIG_ENABLE_VNC }}"
+      when: not raspiconfig.VNC
 
     - name: Disable OneWire
       shell: "raspi-config nonint do_onewire 1"
-      when: "not {{ RASPICONFIG_ENABLE_ONEWIRE }}"
+      when: not raspiconfig.ONEWIRE 
 
     - name: Disable Remote GPIO
       shell: "raspi-config nonint do_rgpio 1"
-      when: "not {{ RASPICONFIG_ENABLE_RGPIO }}"
+      when: not raspiconfig.RGPIO 
 
 
 
