@@ -34,8 +34,9 @@
         dest: /etc/wpa_supplicant/wpa_supplicant.conf
       when: RASPBIAN_OVERRIDE_WIFI_SETTINGS
 
-    - name: Set raspiconfig var
-      set-fact: raspiconfig="{{ RASPICONFIG }}"
+    - name: Set raspiconfig variable
+      set_fact: 
+        raspiconfig: "{{ RASPICONFIG }}"
 
     - name: Enable serial
       shell: "raspi-config nonint do_serial 0"
