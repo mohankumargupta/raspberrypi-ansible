@@ -136,16 +136,6 @@ services:
       - "/storage/docker/redis/data:/data"
 
 {% endif %}
-{% if dockerKitchenSink or docker.POSTGRES == True %}
-  postgres:
-    container_name: postgres
-    image: postgres
-    ports:
-      - 5432:5432
-    volumes:
-      - "/storage/docker/postgres/data:/var/lib/postgresql/data"
-
-{% endif %}
 {% if dockerKitchenSink or docker.NODERED == True %}
   nodered:
      container_name: nodered

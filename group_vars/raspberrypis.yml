@@ -84,7 +84,6 @@ DOCKER:
   MONGODB: false
   JUPYTER: true
   REDIS: false
-  POSTGRES: true
   NODERED: false
   GRAFANA: false
 
