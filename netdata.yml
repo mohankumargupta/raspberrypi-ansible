@@ -1,0 +1,6 @@
+---
+- name: Raspberry Pi Basic Settings
+  hosts: raspberrypis
+  tasks:
+    - name: Install netdata
+      shell: bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait

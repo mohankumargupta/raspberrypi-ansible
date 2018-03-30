@@ -1,0 +1,57 @@
+---
+- name: MotionEyeOS
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Install prereqs
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - ffmpeg 
+        - v4l-utils
+        - libmariadbclient18 
+        - libpq5
+        - python-pip 
+        - python-dev 
+        - libssl-dev 
+        - libcurl4-openssl-dev 
+        - libjpeg-dev
+
+    - name: Install Motion
+      apt:
+        deb: https://github.com/Motion-Project/motion/releases/download/release-4.1.1/pi_stretch_motion_4.1.1-1_armhf.deb
+
+    - name: Install MotionEye
+      pip:
+        name: motioneye
+
+    - name: Prepare configuration directory
+      file:
+        path: /etc/motioneye
+        state: directory
+
+    - name: Copy main configuration file
+      copy:
+        src: /usr/local/share/motioneye/extra/motioneye.conf.sample
+        dest: /etc/motioneye/motioneye.conf
+        remote_src: yes
+
+    - name: Prepare media directory
+      file:
+        path: /var/lib/motioneye
+        state: directory    
+
+    - name: Add init script
+      copy:
+        src: /usr/local/share/motioneye/extra/motioneye.systemd-unit-local
+        dest: /etc/systemd/system/motioneye.service
+        remote_src: yes
+
+    - name: Start systemd services
+      systemd:
+        daemon-reload: yes
+        enabled: yes
+        name: motioneye
+        state: started
+
