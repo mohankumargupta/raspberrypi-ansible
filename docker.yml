@@ -76,31 +76,9 @@
       systemd:
         name: dockerhack
         enabled: yes
-      tags:
-        - hack
-        - dockerservices
-
-    - name: Copy docker-compose systemd files
-      copy:
-        remote_src: yes
-        src: /storage/docker/docker/dockercompose.service
-        dest: /etc/systemd/system
-      tags:
-        - dockercompose
-        - dockerservices
-
-    - name: Enable docker-compose systemd service
-      systemd:
-        name: dockercompose
         state: started
-        enabled: yes
       tags:
         - hack
         - dockerservices
 
-    - name: Start docker 
-      shell:  /usr/bin/docker-compose up -d
-      args:
-        chdir: /storage/docker
-      tags:
-        - startdockercompose
+

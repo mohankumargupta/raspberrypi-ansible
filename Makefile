@@ -6,11 +6,11 @@ ifdef SKIPTAGS
 APPENDSTRING:=$(APPENDSTRING) --skip-tags=$(SKIPTAGS)
 endif
 
-.PHONY: all clean run tags test
+.PHONY: all clean tags test
 
 all:
 	ssh-keygen -f "/home/mohan/.ssh/known_hosts" -R $(IPADDRESS) ;\
-	ssh-copy-id pi@$(IPADDRESS) ;\
+	sshpass -p raspberry ssh-copy-id -o StrictHostKeyChecking=no pi@$(IPADDRESS) ;\
 	bash run.sh ;\
 
 clean:
