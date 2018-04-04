@@ -6,12 +6,17 @@ ifdef SKIPTAGS
 APPENDSTRING:=$(APPENDSTRING) --skip-tags=$(SKIPTAGS)
 endif
 
-.PHONY: all clean tags test
+.PHONY: all clean tags test setup
 
 all:
 	ssh-keygen -f "/home/mohan/.ssh/known_hosts" -R $(IPADDRESS) ;\
 	sshpass -p raspberry ssh-copy-id -o StrictHostKeyChecking=no pi@$(IPADDRESS) ;\
 	bash run.sh ;\
+
+setup:
+	echo $(SUDOPASSWORD) | sudo -S add-apt-repository ppa:ansible/ansible ;\
+	echo $(SUDOPASSWORD) | sudo -S apt-get update ;\
+	echo $(SUDOPASSWORD) | sudo -S apt-get -y install ansible git ;\
 
 clean:
 	ssh-keygen -f "/home/mohan/.ssh/known_hosts" -R $(IPADDRESS) ;\

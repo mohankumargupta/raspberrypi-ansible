@@ -6,7 +6,8 @@
 #   ansible-playbook --verbose -i hosts playbook.yml --ask-become-pass --skip-tags=apt  
 
 
-ansible-playbook --verbose -i hosts playbook.yml --ask-become-pass
+#ansible-playbook --verbose -i hosts playbook.yml --ask-become-pass
 #ansible-playbook --verbose -i hosts playbook.yml --extra-vars="ansible_become_pass=Kiac##44"
+ansible-playbook --verbose -i hosts rtmpstreaming.yml --extra-vars="ansible_become_pass=Kiac##44"
 
 
