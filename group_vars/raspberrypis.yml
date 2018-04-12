@@ -87,6 +87,14 @@ DOCKER:
   NODERED: false
   GRAFANA: false
 
+MISCELLANEOUS:
+  RETROPIE: false
+  MOTIONEYE: false
+  FUZEBASIC: false
+  
+NGROK:
+  TWITTER: false
+  EMAIL: false
 
 
 
