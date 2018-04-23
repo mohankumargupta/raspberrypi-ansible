@@ -91,6 +91,7 @@ MISCELLANEOUS:
   RETROPIE: false
   MOTIONEYE: false
   FUZEBASIC: false
+  WORDPRESS: false
   
 NGROK:
   TWITTER: false
