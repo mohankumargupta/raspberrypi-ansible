@@ -18,6 +18,12 @@ setup:
 	echo $(SUDOPASSWORD) | sudo -S apt-get update ;\
 	echo $(SUDOPASSWORD) | sudo -S apt-get -y install ansible git ;\
 
+setupmsys32:
+	bash setup-msys32.sh
+
+setupmsys64:
+	bash setup-msys64.sh
+
 clean:
 	ssh-keygen -f "/home/mohan/.ssh/known_hosts" -R $(IPADDRESS) ;\
 	ssh-copy-id pi@$(IPADDRESS) ;\
