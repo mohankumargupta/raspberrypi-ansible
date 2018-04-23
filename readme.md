@@ -77,4 +77,11 @@ Once the above commands have been run, on the pi
 you can go to http://localhost or on another machine on the same network, go to http://PI_IP_ADDRESS to get a 
 list of web-based services available on the Pi.
 
+# Windows 10 Bash on Ubuntu on Windows 
+If using Window 10, run this command
+in cmd.exe to login as root.
+
+```
+lxrun /setdefaultuser root
+```
 
