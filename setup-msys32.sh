@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 pacman -Su --noconfirm
-pacman -S python3 tar mingw-w64-i686-gcc make libffi libffi-devel openssl-devel openssh base-devel pkg-config --noconfirm --needed
+pacman -S python3 tar gcc make libffi libffi-devel openssl-devel openssh base-devel pkg-config --noconfirm --needed
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.16-mingw.tar.gz
