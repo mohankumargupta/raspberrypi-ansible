@@ -1,48 +1,45 @@
 ---
-# This only downloads sample from github
-# Follow the instructions here https://github.com/alexa/alexa-avs-sample-app/wiki/Raspberry-Pi
-# You have to signup with an Amazon account
-# and run /home/pi/Desktop/alexa-avs-sample-app/automated_install.sh
-# . After that, this script makes it easier
-# to open the 3 terminal windows by making links on the Desktop.
-
-# UPDATE: This is broken in Raspbian Stretch
-# to fix, try:
-# https://github.com/alexa/alexa-avs-sample-app/issues/1066
-# https://github.com/alexa/alexa-avs-sample-app/issues/277
-
-
-- name: Download Alexa AWS Sample from github 
+- name: Install Amazon Alexa sample app for Pi
   hosts: raspberrypis
   tasks:
-    - name: Download from github
-      git:
-        repo: 'https://github.com/alexa/alexa-avs-sample-app.git'
-        dest: /home/pi/Desktop/alexa-avs-sample-app
-        force: yes
+  #  - name: include vars
+  #    include_vars:
+  #      file: group_vars/raspberrypis.yml
+  #    tags:
+  #      - debug
+  #  - name: print debug
+  #    debug: 
+  #      msg: "{{ msg }}"
+  #    vars:
+  #      msg: "{{ ALEXA.CLIENT_ID }}"      
+  #    tags:
+  #      - debug
 
-    - name: make automated_install.sh executable
+    - name: Create alexa directory on Desktop
       file:
-        path: /home/pi/Desktop/alexa-avs-sample-app/automated_install.sh
-        mode: 0755
+        name: "~/Desktop/alexa"
+        state: directory
 
-    - name: Copy 3 terminal window links for Alexa
-      copy:
-        src: "{{ item }}"
-        dest: /home/pi/Desktop
-        mode: 0755
-      with_fileglob:
-      - files/amazon-alexa/*
-
-    - name: Install required package
-      apt:
-        name: "{{item}}"
-      with_items:
-        - "libvlc-dev"
-        - cmake
-      become: yes
+    - name: Download alexa
+      shell: "wget https://raw.githubusercontent.com/alexa/avs-device-sdk/master/tools/Install/setup.sh && wget https://raw.githubusercontent.com/alexa/avs-device-sdk/master/tools/Install/config.txt && wget https://raw.githubusercontent.com/alexa/avs-device-sdk/master/tools/Install/pi.sh"
+      args:
+        chdir: "~/Desktop/alexa"
 
 
+    - name: Update client_id config.txt
+      lineinfile:
+        path: "~/Desktop/alexa/config.txt"
+        regexp: "^CLIENT_ID="
+        replace: "CLIENT_ID={{ ALEXA.CLIENT_ID }}"
+        
+    - name: Update product_id in config.txt
+      lineinfile:
+        path: "~/Desktop/alexa/config.txt"
+        regexp: "^PRODUCT_ID="
+        replace: "PRODUCT_ID={{ ALEXA.PRODUCT_ID }}"
 
-
-
+    - name: Install alexa
+      become: true
+      shell: bash setup.sh config.txt
+      args:
+        chdir: "~/Desktop/alexa"
