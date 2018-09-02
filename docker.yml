@@ -3,16 +3,6 @@
   hosts: raspberrypis
   become: true
   tasks:
-    - name: total hack
-      shell: rm -rf /var/lib/apt/lists/*
-      tags:
-        - installdocker
-
-    - name: Install docker
-      shell: "curl -fsSL https://get.docker.com/ | bash"
-      tags:
-        - installdocker
-
     - name: Grab docker containers from groups vars
       set_fact: dockercontainers="{{ hostvars[\"raspberrypi\"][\"DOCKER\"] }}"
       tags:

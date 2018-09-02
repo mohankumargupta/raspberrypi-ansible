@@ -6,5 +6,5 @@
 # hostname.
 
 [raspberrypis]
-raspberrypi ansible_host=192.168.81.52 ansible_user=pi ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+raspberrypi ansible_host=192.168.81.86 ansible_user=pi ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 

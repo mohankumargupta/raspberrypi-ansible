@@ -1,0 +1,11 @@
+---
+- name: apt-get update
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Get latest Raspbian updates
+      apt: 
+        update_cache: yes
+        autoclean: yes
+        autoremove: yes
+

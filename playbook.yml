@@ -2,10 +2,15 @@
 # If you see {{SOME_VARIABLE}} in the yml files, these are 
 # Ansible variables, defined in the group_vars directory 
 
-- name: Pre-requisites
+- name: Install prerequisites on controlling computer
   import_playbook: prerequisites.yml
   tags:
     - prerequisites
+
+- name: Update raspbian package list
+  import_playbook: apt-update.yml
+  tags:
+    - aptupdate
 
 - name: Install Apt Software
   import_playbook: apt-software.yml
@@ -31,29 +36,15 @@
   tags:
     - python
 
-#- import_playbook: amazon-alexa.yml
-#  tags:
-#    - voice
-#    - alexa
-
-#- import_playbook: google-assistant.yml
-#  tags:
-#    - voice
-#    - googleassistant
-
-#- import_playbook: nginx.yml
-#  tags:
-#   - nginx
-
 - name: SAMBA
   import_playbook: sambafiles.yml
   tags:
     - samba
 
 - name: Docker
-  import_playbook: docker.yml
+  import_playbook: docker-simple.yml
   tags:
-    - docker
+    - dockersimple
   when: ENABLE_DOCKER
 
 - name: ngrok

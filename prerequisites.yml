@@ -9,5 +9,4 @@
         state: latest
       with_items:
         - python-apt 
-        - aptitude 
-        - mysql-client
+        - aptitude

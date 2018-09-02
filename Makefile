@@ -25,10 +25,12 @@ setupmsys64:
 	bash setup-msys64.sh
 
 clean:
-	ssh-keygen -f "/home/mohan/.ssh/known_hosts" -R $(IPADDRESS) ;\
+	ssh-keygen -f $${HOME}/.ssh/known_hosts -R $(IPADDRESS) ;\
 	ssh-copy-id pi@$(IPADDRESS) ;\
 
 tags:
-	ansible-playbook --verbose -i hosts playbook.yml --ask-become-pass $(APPENDSTRING)
+	ansible-playbook --verbose -i hosts playbook.yml $(APPENDSTRING)
 
 
+ping:
+	ansible -i hosts -m ping all 

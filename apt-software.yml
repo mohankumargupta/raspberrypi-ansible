@@ -3,25 +3,13 @@
   hosts: raspberrypis
   become: true
   tasks:
-
-    - name: hack
-      shell: "apt-get clean"
-
-    - name: Get latest Raspbian updates
-      apt: 
-        update_cache: yes
-
-    - name: Make sure there are no broken packages
-      command: apt-get -y -f install
-
     - name: Install software
       apt:
         name: "{{ item }}"
         state: latest
       with_items:
         - at-spi2-core
-        - florence  
-        - realvnc-vnc-server 
+        - florence   
         - build-essential 
 
     - name: Install software from group_vars/raspberrypis.yml
@@ -29,13 +17,6 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ RASPBIAN_APT_INSTALL }}"
-
-
-
-
-
-
-
 
   
 

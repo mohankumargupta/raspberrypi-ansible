@@ -1,0 +1,46 @@
+---
+- name: Simple docker install
+  hosts: raspberrypis
+  become: true
+  tasks:
+    - name: Enabling cgroup options at boot
+      copy:
+        src: cmdline.txt
+        dest: /boot/cmdline.txt
+        owner: root
+        group: root
+        mode: 0755
+      register: cgroups
+
+    - name: Reboot
+      shell: "sleep 5 && reboot"
+      async: 1
+      poll: 0
+      when: cgroups is changed
+
+    - name: Wait for reboot to occur
+      wait_for_connection:
+        connect_timeout: 30
+        sleep: 5
+        delay: 5
+        timeout: 400
+      when: cgroups is changed
+
+    - name: Disable Swap
+      shell: dphys-swapfile swapoff && dphys-swapfile uninstall && update-rc.d dphys-swapfile remove
+
+    - name: Determine if docker is installed
+      stat:
+        path: /usr/bin/docker
+      register: docker_there
+      ignore_errors: True
+
+    - name: Install docker
+      shell: "curl -sSL get.docker.com | sh" 
+      when: docker_there.stat.exists == False
+      
+    - name: Add group docker to user pi
+      user:
+        name: pi
+        groups: docker
+
